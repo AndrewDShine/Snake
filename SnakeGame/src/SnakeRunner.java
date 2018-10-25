@@ -3,11 +3,11 @@ import java.awt.event.*;
 import javax.swing.JFrame;
 public class SnakeRunner extends Canvas
 	{
-		static int x=408;
-		static int y=336;
+		static int x=0;
+		static int y=0;
 		static boolean up=false;
-		static boolean down=false;
-		static boolean right=true;
+		static boolean down=true;
+		static boolean right=false;
 		static boolean left=false;
 		static boolean gameOver=false;
 		public static void main(String[] args)
@@ -22,10 +22,11 @@ public class SnakeRunner extends Canvas
 		        frame.setResizable(false);
 		        frame.setVisible(true);
 		        ex.requestFocus();
+		        
 			}
 		 public SnakeRunner()
 			 {
-		        setSize(new Dimension(864, 768));
+		        setSize(new Dimension(876, 768));
 		        setBackground(Color.BLACK);
 		        addKeyListener(new KeyAdapter() 
 		        {
@@ -35,6 +36,7 @@ public class SnakeRunner extends Canvas
 //		                setDirection(e);
 //		            }
 		        });
+		        
 		      
 		        
 		    }
@@ -42,7 +44,7 @@ public class SnakeRunner extends Canvas
 		 {
 			 g.setColor(Color.CYAN);
 			 g.fillRect(x, y, 24, 24);
-			 
+			 moveSnake();
 			
 		 }
 		 public void moveSnake()
@@ -67,7 +69,7 @@ public class SnakeRunner extends Canvas
 					x-=24;	
 				 }
 				repaint(); 
-				Thread.sleep(1000);
+				Thread.sleep(100);
 
 				 }
 			 catch(Exception e)
