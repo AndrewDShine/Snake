@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
-public class Snake extends Body
+public class Snake
 	{
 //		This is the POJO for the whole snake, which will hold an ArrayList of Body objects.
 		private ArrayList<Body> snakeBody = new ArrayList<Body>();
 		
-		public Snake(int x, int y)
+		public Snake()
 		{
-			super(x,y);
+			
 		}
 
 		public ArrayList<Body> getSnakeBody()
@@ -20,5 +20,17 @@ public class Snake extends Body
 				this.snakeBody = snakeBody;
 			}
 		
+		public void addToSnakeBody(Body b)
+			{
+				snakeBody.add(b);
+			}
 		
+		public void changeBodyPositions()
+			{
+				for(int i = 0; i < snakeBody.size(); i++)
+					{
+						snakeBody.get(i+1).setxPos(snakeBody.get(i).getxPos());
+						snakeBody.get(i+1).setyPos(snakeBody.get(i).getyPos());
+					}
+			}
 	}
