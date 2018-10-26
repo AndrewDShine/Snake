@@ -7,7 +7,7 @@ public class Snake
 		
 		public Snake()
 		{
-			
+			addToSnakeBody(new Body(0, 0));
 		}
 
 		public ArrayList<Body> getSnakeBody()
