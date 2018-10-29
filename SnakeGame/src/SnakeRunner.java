@@ -26,20 +26,48 @@ public class SnakeRunner extends Canvas
 			}
 		 public SnakeRunner()
 			 {
-		        setSize(new Dimension(876, 768));
+		        setSize(new Dimension(876, 780));
 		        setBackground(Color.BLACK);
 		        addKeyListener(new KeyAdapter() 
 		        {
-//		            @Override
-//		            public void keyPressed(KeyEvent e) 
-//		            {
-//		                setDirection(e);
-//		            }
+		            @Override
+		            public void keyPressed(KeyEvent e) 
+		            {
+		                switch(e.getKeyCode())
+		                {
+		                	case KeyEvent.VK_DOWN:
+		                		falseAll();
+		                		down = true;
+		                		break;
+		                	case KeyEvent.VK_UP:
+		                		falseAll();
+		                		up = true;
+		                		break;
+		                	case KeyEvent.VK_RIGHT:
+		                		falseAll();
+		                		right = true;
+		                		break;
+		                	case KeyEvent.VK_LEFT:
+		                		falseAll();
+		                		left = true;
+		                		break;
+		                	case KeyEvent.VK_SPACE:
+		                		falseAll();
+		                		break;
+		                }
+		            }
 		        });
 		        
 		      
 		        
 		    }
+		 public void falseAll()
+		 {
+			 up = false;
+			 down = false;
+			 left = false;
+			 right = false;
+		 }
 		 public void paint(Graphics g)
 		 {
 			 g.setColor(Color.CYAN);
@@ -54,17 +82,17 @@ public class SnakeRunner extends Canvas
 			 
 				if(up)
 				 {
-					y+=24; 
+					y-=24; 
 				 }
 				else if(down)
 				 {
-					y-=24;	
+					y+=24;	
 				 }
 				else if(right)
 				 {
 					x+=24;	
 				 }
-				else
+				else if(left)
 				 {
 					x-=24;	
 				 }
