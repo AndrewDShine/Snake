@@ -10,6 +10,11 @@ public class Snake
 			addToSnakeBody(new Body(0, 0));
 		}
 
+		public Body getHead()
+			{
+				return snakeBody.get(0);
+			}
+		
 		public ArrayList<Body> getSnakeBody()
 			{
 				return snakeBody;

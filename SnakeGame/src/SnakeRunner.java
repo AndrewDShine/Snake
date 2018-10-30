@@ -6,10 +6,11 @@ public class SnakeRunner extends Canvas
 		static int x=0;
 		static int y=0;
 		static boolean up=false;
-		static boolean down=true;
-		static boolean right=false;
+		static boolean down=false;
+		static boolean right=true;
 		static boolean left=false;
 		static boolean gameOver=false;
+		static Snake snake = new Snake();
 		public static void main(String[] args)
 			{
 				
@@ -82,19 +83,47 @@ public class SnakeRunner extends Canvas
 			 
 				if(up)
 				 {
-					y-=24; 
+					if(y > 0)
+						{
+							y-=24;
+						}
+					else
+						{
+							gameOver = true;
+						}
 				 }
 				else if(down)
 				 {
-					y+=24;	
+					 if(y < 756)
+							{
+								y+=24;
+							}
+						else
+							{
+								gameOver = true;
+							}	
 				 }
 				else if(right)
 				 {
-					x+=24;	
+					 if(x < 852)
+							{
+								x+=24;
+							}
+						else
+							{
+								gameOver = true;
+							}	
 				 }
 				else if(left)
 				 {
-					x-=24;	
+					 if(x > 0)
+							{
+								x-=24;
+							}
+						else
+							{
+								gameOver = true;
+							}	
 				 }
 				repaint(); 
 				Thread.sleep(100);
@@ -106,6 +135,10 @@ public class SnakeRunner extends Canvas
 				 }
 				
 				
+		 }
+		 public void createNewFruit()
+		 {
+			 
 		 }
 		 
 	}
