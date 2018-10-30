@@ -5,12 +5,15 @@ public class SnakeRunner extends Canvas
 	{
 		static int x=0;
 		static int y=0;
+		static int xSize = 876;
+		static int ySize = 780;
 		static boolean up=false;
 		static boolean down=false;
 		static boolean right=true;
 		static boolean left=false;
 		static boolean gameOver=false;
 		static Snake snake = new Snake();
+		
 		public static void main(String[] args)
 			{
 				
@@ -27,7 +30,7 @@ public class SnakeRunner extends Canvas
 			}
 		 public SnakeRunner()
 			 {
-		        setSize(new Dimension(876, 780));
+		        setSize(new Dimension(xSize, ySize));
 		        setBackground(Color.BLACK);
 		        addKeyListener(new KeyAdapter() 
 		        {
@@ -94,7 +97,7 @@ public class SnakeRunner extends Canvas
 				 }
 				else if(down)
 				 {
-					 if(y < 756)
+					 if(y < (ySize - 24))
 							{
 								y+=24;
 							}
@@ -105,7 +108,7 @@ public class SnakeRunner extends Canvas
 				 }
 				else if(right)
 				 {
-					 if(x < 852)
+					 if(x < (xSize - 24))
 							{
 								x+=24;
 							}
