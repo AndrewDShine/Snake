@@ -5,8 +5,7 @@ import java.util.ArrayList;
 
 public class SnakeRunner extends Canvas
 	{
-		static int x=0;
-		static int y=0;
+		static Snake snake = new Snake();
 		static int xSize = 876;
 		static int ySize = 780;
 		static boolean up=false;
@@ -14,8 +13,10 @@ public class SnakeRunner extends Canvas
 		static boolean right=true;
 		static boolean left=false;
 		static boolean gameOver=false;
+
 		static ArrayList<Body> fruits = new ArrayList<Body>();
 		static boolean needsFruit = true;
+
 		
 		public static void main(String[] args)
 			{
@@ -83,7 +84,8 @@ public class SnakeRunner extends Canvas
 		 public void paint(Graphics g)
 		 {
 			 g.setColor(Color.CYAN);
-			 g.fillRect(x, y, 24, 24);
+
+			 g.fillRect(snake.getHead().getxPos(), snake.getHead().getyPos(), 24, 24);
 			 g.setColor(Color.RED);
 			 g.fillRect(fruits.get(0).getxPos(), fruits.get(0).getyPos(), 24, 24);
 			 moveSnake();
@@ -96,9 +98,9 @@ public class SnakeRunner extends Canvas
 			 
 				if(up)
 				 {
-					if(y > 0)
+					if(snake.getHead().getyPos() > 0)
 						{
-							y-=24;
+							snake.getHead().setyPos(snake.getHead().getyPos()-24);
 						}
 					else
 						{
@@ -107,9 +109,9 @@ public class SnakeRunner extends Canvas
 				 }
 				else if(down)
 				 {
-					 if(y < (ySize - 24))
+					 if(snake.getHead().getyPos() < (ySize - 24))
 							{
-								y+=24;
+								snake.getHead().setyPos(snake.getHead().getyPos()+24);
 							}
 						else
 							{
@@ -118,9 +120,9 @@ public class SnakeRunner extends Canvas
 				 }
 				else if(right)
 				 {
-					 if(x < (xSize - 24))
+					 if(snake.getHead().getxPos() < (xSize - 24))
 							{
-								x+=24;
+								snake.getHead().setxPos(snake.getHead().getxPos()+24);
 							}
 						else
 							{
@@ -129,9 +131,9 @@ public class SnakeRunner extends Canvas
 				 }
 				else if(left)
 				 {
-					 if(x > 0)
+					 if(snake.getHead().getxPos() > 0)
 							{
-								x-=24;
+								snake.getHead().setxPos(snake.getHead().getxPos()-24);
 							}
 						else
 							{
