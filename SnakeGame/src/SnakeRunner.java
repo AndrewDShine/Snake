@@ -1,6 +1,8 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JFrame;
+import java.util.ArrayList;
+
 public class SnakeRunner extends Canvas
 	{
 		static int x=0;
@@ -12,7 +14,8 @@ public class SnakeRunner extends Canvas
 		static boolean right=true;
 		static boolean left=false;
 		static boolean gameOver=false;
-		static Snake snake = new Snake();
+		static ArrayList<Body> fruits = new ArrayList<Body>();
+		static boolean needsFruit = true;
 		
 		public static void main(String[] args)
 			{
@@ -60,7 +63,12 @@ public class SnakeRunner extends Canvas
 		                		break;
 		                }
 		            }
+		            
 		        });
+		        if(needsFruit)
+	            	{
+	            		createNewFruit();
+	            	}
 		        
 		      
 		        
@@ -76,6 +84,8 @@ public class SnakeRunner extends Canvas
 		 {
 			 g.setColor(Color.CYAN);
 			 g.fillRect(x, y, 24, 24);
+			 g.setColor(Color.RED);
+			 g.fillRect(fruits.get(0).getxPos(), fruits.get(0).getyPos(), 24, 24);
 			 moveSnake();
 			
 		 }
@@ -141,7 +151,9 @@ public class SnakeRunner extends Canvas
 		 }
 		 public void createNewFruit()
 		 {
-			 
+			 int fruitX = ((int) (Math.random()*37)) * 24;
+			 int fruitY = ((int) (Math.random()*33)) * 24;
+			 fruits.add(new Body(fruitX,fruitY));
 		 }
 		 
 	}
