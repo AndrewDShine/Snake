@@ -83,19 +83,30 @@ public class SnakeRunner extends Canvas
 		 }
 		 public void paint(Graphics g)
 		 {
+			 if(!gameOver)
+				 {
 			 g.setColor(Color.CYAN);
 
 			 g.fillRect(snake.getHead().getxPos(), snake.getHead().getyPos(), 24, 24);
 			 g.setColor(Color.RED);
 			 g.fillRect(fruits.get(0).getxPos(), fruits.get(0).getyPos(), 24, 24);
 			 moveSnake();
+				 }
+			 else
+				 {
+					 g.setColor(Color.white);
+					 Font f=new Font("fantsy", Font.PLAIN, 50);
+					 g.setFont(f);
+					 g.drawString("GAME OVER", 288, 390);	 
+				 }
 			
 		 }
 		 public void moveSnake()
 		 {
 			 try
 				 {
-			 
+			 if(!gameOver)
+				   {
 				if(up)
 				 {
 					if(snake.getHead().getyPos() > 0)
@@ -142,7 +153,12 @@ public class SnakeRunner extends Canvas
 				 }
 				repaint(); 
 				Thread.sleep(100);
-
+				
+				   }
+			 else
+			 {
+			 repaint(); 
+			 }
 				 }
 			 catch(Exception e)
 				 {
