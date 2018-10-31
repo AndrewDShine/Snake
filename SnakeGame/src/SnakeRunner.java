@@ -66,10 +66,6 @@ public class SnakeRunner extends Canvas
 		            }
 		            
 		        });
-		        if(needsFruit)
-	            	{
-	            		createNewFruit();
-	            	}
 		        
 		      
 		        
@@ -89,8 +85,27 @@ public class SnakeRunner extends Canvas
 
 			 g.fillRect(snake.getHead().getxPos(), snake.getHead().getyPos(), 24, 24);
 			 g.setColor(Color.RED);
-			 g.fillRect(fruits.get(0).getxPos(), fruits.get(0).getyPos(), 24, 24);
+			 if(fruits.size() > 0)
+				 {
+					 g.fillRect(fruits.get(0).getxPos(), fruits.get(0).getyPos(), 24, 24);
+				 }
+			 else
+				 {
+					 needsFruit = true;
+				 }
 			 moveSnake();
+       if(needsFruit)
+	            	{
+	            		createNewFruit();
+	            	}
+		        for(Body b: snake.getSnakeBody())
+		        	{
+//		        		System.out.println(b.getxPos() + " " + b.getyPos());
+		        		if((b.getxPos() == fruits.get(0).getxPos()) && (b.getyPos() == fruits.get(0).getyPos()))
+		        			{
+		        				fruits.remove(fruits.get(0));
+		        			}
+		        	}
 				 }
 			 else
 				 {
@@ -99,6 +114,7 @@ public class SnakeRunner extends Canvas
 					 g.setFont(f);
 					 g.drawString("GAME OVER", 288, 390);	 
 				 }
+
 			
 		 }
 		 public void moveSnake()
@@ -172,6 +188,7 @@ public class SnakeRunner extends Canvas
 			 int fruitX = ((int) (Math.random()*37)) * 24;
 			 int fruitY = ((int) (Math.random()*33)) * 24;
 			 fruits.add(new Body(fruitX,fruitY));
+			 needsFruit = false;
 		 }
 		 
 	}
