@@ -97,7 +97,8 @@ public class SnakeRunner extends Canvas
 				 {
 					 needsFruit = true;
 				 }
-			 moveSnake();
+				moveSnake();
+			 
 			 if(needsFruit)
 	            	{
 	            		createNewFruit();
@@ -127,53 +128,51 @@ public class SnakeRunner extends Canvas
 				 {
 			 if(!gameOver)
 				   {
-					   for(Body b: snake.getSnakeBody())
-						   {
-							   if(up)
-									 {
-										if(snake.getHead().getyPos() > 0)
-											{
-												snake.getHead().setyPos(snake.getHead().getyPos()-24);
-											}
-										else
-											{
-												gameOver = true;
-											}
-									 }
-									else if(down)
-									 {
-										 if(snake.getHead().getyPos() < (ySize - 24))
-												{
-													snake.getHead().setyPos(snake.getHead().getyPos()+24);
-												}
-											else
-												{
-													gameOver = true;
-												}	
-									 }
-									else if(right)
-									 {
-										 if(snake.getHead().getxPos() < (xSize - 24))
-												{
-													snake.getHead().setxPos(snake.getHead().getxPos()+24);
-												}
-											else
-												{
-													gameOver = true;
-												}	
-									 }
-									else if(left)
-									 {
-										 if(snake.getHead().getxPos() > 0)
-												{
-													snake.getHead().setxPos(snake.getHead().getxPos()-24);
-												}
-											else
-												{
-													gameOver = true;
-												}	
-									 }
-						   }
+				if(up)
+				 {
+					if(snake.getHead().getyPos() > 0)
+						{
+							snake.getHead().setyPos(snake.getHead().getyPos()-24);
+						}
+					else
+						{
+							gameOver = true;
+						}
+				 }
+				else if(down)
+				 {
+					 if(snake.getHead().getyPos() < (ySize - 24))
+							{
+								snake.getHead().setyPos(snake.getHead().getyPos()+24);
+							}
+						else
+							{
+								gameOver = true;
+							}	
+				 }
+				else if(right)
+				 {
+					 if(snake.getHead().getxPos() < (xSize - 24))
+							{
+								snake.getHead().setxPos(snake.getHead().getxPos()+24);
+							}
+						else
+							{
+								gameOver = true;
+							}	
+				 }
+				else if(left)
+				 {
+					 if(snake.getHead().getxPos() > 0)
+							{
+								snake.getHead().setxPos(snake.getHead().getxPos()-24);
+							}
+						else
+							{
+								gameOver = true;
+							}	
+				 }
+				
 				repaint(); 
 				Thread.sleep(100);
 				
