@@ -32,10 +32,14 @@ public class Snake
 		
 		public void changeBodyPositions()
 			{
-				for(int i = 0; i < snakeBody.size(); i++)
+				if(snakeBody.size() > 1)
 					{
-						snakeBody.get(i+1).setxPos(snakeBody.get(i).getxPos());
-						snakeBody.get(i+1).setyPos(snakeBody.get(i).getyPos());
+						for(int i = 0; i < snakeBody.size(); i++)
+							{
+								snakeBody.get(i+1).setxPos(snakeBody.get(i).getxPos());
+								snakeBody.get(i+1).setyPos(snakeBody.get(i).getyPos());
+							}
 					}
+				
 			}
 	}

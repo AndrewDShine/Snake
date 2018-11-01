@@ -172,7 +172,7 @@ public class SnakeRunner extends Canvas
 								gameOver = true;
 							}	
 				 }
-				
+				snake.changeBodyPositions();
 				repaint(); 
 				Thread.sleep(100);
 				
