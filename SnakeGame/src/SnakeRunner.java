@@ -81,10 +81,13 @@ public class SnakeRunner extends Canvas
 		 public void paint(Graphics g)
 		 {
 			 if(!gameOver)
-				 {
+			 {
 			 g.setColor(Color.CYAN);
-
-			 g.fillRect(snake.getHead().getxPos(), snake.getHead().getyPos(), 24, 24);
+			 for(Body b: snake.getSnakeBody())
+				 {
+//					 g.fillRect(snake.getHead().getxPos(), snake.getHead().getyPos(), 24, 24);
+					 g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
+				 }
 			 g.setColor(Color.RED);
 			 if(fruits.size() > 0)
 				 {
@@ -104,17 +107,17 @@ public class SnakeRunner extends Canvas
 //		        		System.out.println(b.getxPos() + " " + b.getyPos());
 		        		if((b.getxPos() == fruits.get(0).getxPos()) && (b.getyPos() == fruits.get(0).getyPos()))
 		        			{
-		        				fruits.remove(fruits.get(0));
+		        				eatFruit();
 		        			}
 		        	}
-				 }
+			 }
 			 else
-				 {
+			 {
 					 g.setColor(Color.white);
 					 Font f=new Font("fantsy", Font.PLAIN, 50);
 					 g.setFont(f);
 					 g.drawString("GAME OVER", 288, 390);	 
-				 }
+			 }
 
 			
 		 }
@@ -124,50 +127,53 @@ public class SnakeRunner extends Canvas
 				 {
 			 if(!gameOver)
 				   {
-				if(up)
-				 {
-					if(snake.getHead().getyPos() > 0)
-						{
-							snake.getHead().setyPos(snake.getHead().getyPos()-24);
-						}
-					else
-						{
-							gameOver = true;
-						}
-				 }
-				else if(down)
-				 {
-					 if(snake.getHead().getyPos() < (ySize - 24))
-							{
-								snake.getHead().setyPos(snake.getHead().getyPos()+24);
-							}
-						else
-							{
-								gameOver = true;
-							}	
-				 }
-				else if(right)
-				 {
-					 if(snake.getHead().getxPos() < (xSize - 24))
-							{
-								snake.getHead().setxPos(snake.getHead().getxPos()+24);
-							}
-						else
-							{
-								gameOver = true;
-							}	
-				 }
-				else if(left)
-				 {
-					 if(snake.getHead().getxPos() > 0)
-							{
-								snake.getHead().setxPos(snake.getHead().getxPos()-24);
-							}
-						else
-							{
-								gameOver = true;
-							}	
-				 }
+					   for(Body b: snake.getSnakeBody())
+						   {
+							   if(up)
+									 {
+										if(snake.getHead().getyPos() > 0)
+											{
+												snake.getHead().setyPos(snake.getHead().getyPos()-24);
+											}
+										else
+											{
+												gameOver = true;
+											}
+									 }
+									else if(down)
+									 {
+										 if(snake.getHead().getyPos() < (ySize - 24))
+												{
+													snake.getHead().setyPos(snake.getHead().getyPos()+24);
+												}
+											else
+												{
+													gameOver = true;
+												}	
+									 }
+									else if(right)
+									 {
+										 if(snake.getHead().getxPos() < (xSize - 24))
+												{
+													snake.getHead().setxPos(snake.getHead().getxPos()+24);
+												}
+											else
+												{
+													gameOver = true;
+												}	
+									 }
+									else if(left)
+									 {
+										 if(snake.getHead().getxPos() > 0)
+												{
+													snake.getHead().setxPos(snake.getHead().getxPos()-24);
+												}
+											else
+												{
+													gameOver = true;
+												}	
+									 }
+						   }
 				repaint(); 
 				Thread.sleep(100);
 				
@@ -190,6 +196,32 @@ public class SnakeRunner extends Canvas
 			 int fruitY = ((int) (Math.random()*33)) * 24;
 			 fruits.add(new Body(fruitX,fruitY));
 			 needsFruit = false;
+		 }
+		 public void eatFruit()
+		 {
+			 fruits.remove(fruits.get(0));
+			 int xPos = snake.getSnakeBody().get(snake.getSnakeBody().size()-1).getxPos();
+			 int yPos = snake.getSnakeBody().get(snake.getSnakeBody().size()-1).getyPos();
+			 if(up)
+				 {
+					 snake.addToSnakeBody(xPos, yPos + 24);
+				 }
+			 else if(right)
+				 {
+					 snake.addToSnakeBody(xPos - 24, yPos);
+				 }
+			 else if(down)
+				 {
+					 snake.addToSnakeBody(xPos, yPos - 24);
+				 }
+			 else if(left)
+				 {
+					 snake.addToSnakeBody(xPos + 24, yPos);
+				 }
+			 else
+				 {
+					 System.out.println("bet!");
+				 }
 		 }
 		 
 	}

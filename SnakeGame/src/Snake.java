@@ -7,7 +7,7 @@ public class Snake
 		
 		public Snake()
 		{
-			addToSnakeBody(new Body(0, 0));
+			addToSnakeBody(0,0);
 		}
 
 		public Body getHead()
@@ -25,9 +25,9 @@ public class Snake
 				this.snakeBody = snakeBody;
 			}
 		
-		public void addToSnakeBody(Body b)
+		public void addToSnakeBody(int x, int y)
 			{
-				snakeBody.add(b);
+				snakeBody.add(new Body(x,y));
 			}
 		
 		public void changeBodyPositions()
