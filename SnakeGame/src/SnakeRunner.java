@@ -21,6 +21,7 @@ public class SnakeRunner extends Canvas
 		public static void main(String[] args)
 			{
 				
+//				System.out.println("start");
 				JFrame frame = new JFrame("Snake");
 		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    
@@ -94,7 +95,7 @@ public class SnakeRunner extends Canvas
 					 needsFruit = true;
 				 }
 			 moveSnake();
-       if(needsFruit)
+			 if(needsFruit)
 	            	{
 	            		createNewFruit();
 	            	}
