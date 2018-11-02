@@ -29,6 +29,11 @@ public class SnakeRunner extends Canvas
 		        frame.setResizable(false);
 		        frame.setVisible(true);
 		        ex.requestFocus();
+//		        while(true)
+//		        	{
+//		        		ex.moveSnake();
+//		        		ex.repaint();
+//		        	}
 //		        System.out.println("ending main");
 			}
 		 public SnakeRunner()
@@ -124,6 +129,8 @@ public class SnakeRunner extends Canvas
 		 }
 		 public void moveSnake()
 		 {
+			 int preX = snake.getHead().getxPos();
+			 int preY = snake.getHead().getyPos();
 			 try
 				 {
 			 if(!gameOver)
@@ -172,7 +179,7 @@ public class SnakeRunner extends Canvas
 								gameOver = true;
 							}	
 				 }
-				snake.changeBodyPositions();
+				snake.changeBodyPositions(preX, preY);
 				repaint(); 
 				Thread.sleep(100);
 				
@@ -226,5 +233,9 @@ public class SnakeRunner extends Canvas
 	}
 class SnakeEngine extends JFrame
 {
-	
+	public void run()
+	{
+		repaint();
+		
+	}
 }
