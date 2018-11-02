@@ -34,10 +34,10 @@ public class Snake
 			{
 				if(snakeBody.size() > 1)
 					{
-						for(int i = 0; i < snakeBody.size(); i++)
+						for(int i = 1; i < snakeBody.size(); i++)
 							{
-								snakeBody.get(i+1).setxPos(snakeBody.get(i).getxPos());
-								snakeBody.get(i+1).setyPos(snakeBody.get(i).getyPos());
+								snakeBody.get(i).setxPos(snakeBody.get(i-1).getxPos());
+								snakeBody.get(i).setyPos(snakeBody.get(i-1).getyPos());
 							}
 					}
 				

@@ -20,22 +20,21 @@ public class SnakeRunner extends Canvas
 		
 		public static void main(String[] args)
 			{
-				
-//				System.out.println("start");
+//				System.out.println("starting main");
 				JFrame frame = new JFrame("Snake");
 		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		    
 		        SnakeRunner ex = new SnakeRunner();
 		        frame.getContentPane().add(ex);
 		        frame.pack();
 		        frame.setResizable(false);
 		        frame.setVisible(true);
 		        ex.requestFocus();
-		        
+//		        System.out.println("ending main");
 			}
 		 public SnakeRunner()
 			 {
-		        setSize(new Dimension(xSize, ySize));
+//		        System.out.println("starting runner");
+				setSize(new Dimension(xSize, ySize));
 		        setBackground(Color.BLACK);
 		        addKeyListener(new KeyAdapter() 
 		        {
@@ -68,8 +67,8 @@ public class SnakeRunner extends Canvas
 		            
 		        });
 		        
-		      
-		        
+		     
+//		       System.out.println("ending runner"); 
 		    }
 		 public void falseAll()
 		 {
@@ -80,6 +79,7 @@ public class SnakeRunner extends Canvas
 		 }
 		 public void paint(Graphics g)
 		 {
+//			 System.out.println("painting");
 			 if(!gameOver)
 			 {
 			 g.setColor(Color.CYAN);
@@ -115,7 +115,7 @@ public class SnakeRunner extends Canvas
 			 else
 			 {
 					 g.setColor(Color.white);
-					 Font f=new Font("fantsy", Font.PLAIN, 50);
+					 Font f=new Font("bet", Font.PLAIN, 50);
 					 g.setFont(f);
 					 g.drawString("GAME OVER", 288, 390);	 
 			 }
@@ -184,7 +184,8 @@ public class SnakeRunner extends Canvas
 				 }
 			 catch(Exception e)
 				 {
-					System.out.println("bet"); 
+					System.out.println(e.getMessage());
+					 System.out.println("bet"); 
 				 }
 				
 				
@@ -222,5 +223,8 @@ public class SnakeRunner extends Canvas
 					 System.out.println("bet!");
 				 }
 		 }
-		 
 	}
+class SnakeEngine extends JFrame
+{
+	
+}
