@@ -231,11 +231,4 @@ public class SnakeRunner extends Canvas
 				 }
 		 }
 	}
-class SnakeEngine extends JFrame
-{
-	public void run()
-	{
-		repaint();
-		
-	}
-}
+
