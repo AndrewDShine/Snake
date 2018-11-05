@@ -17,6 +17,7 @@ public class SnakeRunner extends Canvas
 
 		static ArrayList<Body> fruits = new ArrayList<Body>();
 		static boolean needsFruit = true;
+		static boolean startGame;
 
 		
 		public static void main(String[] args)
@@ -68,6 +69,10 @@ public class SnakeRunner extends Canvas
 		                	case KeyEvent.VK_SPACE:
 		                		falseAll();
 		                		break;
+		                	case KeyEvent.VK_ENTER:
+		                		startGame=true;
+		                		repaint();
+		                		break;
 		                }
 		            }
 		            
@@ -85,6 +90,38 @@ public class SnakeRunner extends Canvas
 		 }
 		 public void paint(Graphics g)
 		 {
+			 Font f=new Font("bet", Font.PLAIN, 50);
+			 Font x=new Font("bet", Font.PLAIN, 100);
+			 Font z=new Font("bet", Font.PLAIN, 15);
+			 try
+				 {
+			 if(!startGame)
+				 {
+					 String [] snake = {"S", "N", "A", "K", "E"};
+					 int textX=198;
+					 for(String s: snake)
+						 {
+							 g.setColor(Color.white);
+							 g.setFont(x);
+							 g.drawString(s, textX, 125);	 
+							 Thread.sleep(100); 
+							 textX+=100;
+						 }
+					 
+					 String [] intro = {"A", " ", "G", "A", "M", "E"," ","B","Y"," ","A","N","D","R","E","W"," ","A","N","D", " ","J","O","S","H"};
+					 textX=128;
+					 for(String s: intro)
+						 {
+							 g.setColor(Color.white);
+							 g.setFont(z);
+							 g.drawString(s, textX, 175);	 
+							 Thread.sleep(100); 
+							 textX+=25; 
+						 }
+	
+				 }
+			 else
+				 {
 //			 System.out.println("painting");
 			 if(!gameOver)
 			 {
@@ -121,10 +158,15 @@ public class SnakeRunner extends Canvas
 			 else
 			 {
 					 g.setColor(Color.white);
-					 Font f=new Font("bet", Font.PLAIN, 50);
 					 g.setFont(f);
 					 g.drawString("GAME OVER", 288, 390);	 
 			 }
+			    }
+				 }
+			 catch(Exception e)
+				 {
+					System.out.println("bet"); 
+				 }
 
 			
 		 }
