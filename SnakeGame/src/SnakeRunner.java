@@ -211,24 +211,31 @@ public class SnakeRunner extends Canvas
 			 fruits.remove(fruits.get(0));
 			 int xPos = snake.getSnakeBody().get(snake.getSnakeBody().size()-1).getxPos();
 			 int yPos = snake.getSnakeBody().get(snake.getSnakeBody().size()-1).getyPos();
-			 switch(dir)
-			 {
-				 case "up":
-					 snake.addToSnakeBody(xPos, yPos + 24);
-					 break;
-				 case "down":
-					 snake.addToSnakeBody(xPos, yPos - 24);
-					 break;
-				 case "right":
-					 snake.addToSnakeBody(xPos - 24, yPos);
-					 break;
-				 case "left":
-					 snake.addToSnakeBody(xPos + 24, yPos);
-					 break;
-				 default:
-					 System.out.println("bet!");
-					 break;
-			 }
+			 int size = snake.getSnakeBody().size();
+			 size /= 3;
+			 for(int i = 1; i < (size) + 2; i++)
+				 {
+					 switch(dir)
+					 {
+						 case "up":
+							 snake.addToSnakeBody(xPos, yPos + 24);
+							 break;
+						 case "down":
+							 snake.addToSnakeBody(xPos, yPos - 24);
+							 break;
+						 case "right":
+							 snake.addToSnakeBody(xPos - 24, yPos);
+							 break;
+						 case "left":
+							 snake.addToSnakeBody(xPos + 24, yPos);
+							 break;
+						 default:
+							 System.out.println("bet!");
+							 break;
+					 }
+				 }
+			 System.out.println(snake.getSnakeBody().size());
+			 
 		 }
 	}
 
