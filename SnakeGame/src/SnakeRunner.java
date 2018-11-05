@@ -97,28 +97,39 @@ public class SnakeRunner extends Canvas
 				 {
 			 if(!startGame)
 				 {
-					 String [] snake = {"S", "N", "A", "K", "E"};
+					String snake= "SNAKE";
 					 int textX=198;
-					 for(String s: snake)
+					 for(int i=0; i<snake.length(); i++)
 						 {
 							 g.setColor(Color.white);
 							 g.setFont(x);
-							 g.drawString(s, textX, 125);	 
+							 g.drawString(snake.substring(i, i+1), textX, 125);	 
 							 Thread.sleep(100); 
 							 textX+=100;
 						 }
 					 
-					 String [] intro = {"A", " ", "G", "A", "M", "E"," ","B","Y"," ","A","N","D","R","E","W"," ","A","N","D", " ","J","O","S","H"};
+					String credits = "A GAME BY ANDREW AND JOSH";
 					 textX=128;
-					 for(String s: intro)
+					 for(int i=0; i<credits.length(); i++)
 						 {
 							 g.setColor(Color.white);
 							 g.setFont(z);
-							 g.drawString(s, textX, 175);	 
+							 g.drawString(credits.substring(i,  i+1), textX, 175);	 
 							 Thread.sleep(100); 
 							 textX+=25; 
 						 }
-	
+					 String start = "PRESS ENTER TO START";
+					 
+					 textX=178;
+					 
+					 for(int i=0; i<start.length(); i++)
+						 {
+							 g.setColor(Color.white);
+							 g.setFont(z);
+							 g.drawString(start.substring(i,  i+1), textX, 400);	 
+							 Thread.sleep(100); 
+							 textX+=25; 
+						 }
 				 }
 			 else
 				 {
