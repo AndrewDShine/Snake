@@ -13,6 +13,7 @@ public class SnakeRunner extends Canvas
 		static boolean down=false;
 		static boolean right=true;
 		static boolean left=false;
+		static String dir = "right";
 		static boolean gameOver=false;
 
 		static ArrayList<Body> fruits = new ArrayList<Body>();
@@ -50,23 +51,19 @@ public class SnakeRunner extends Canvas
 		                switch(e.getKeyCode())
 		                {
 		                	case KeyEvent.VK_DOWN:
-		                		falseAll();
-		                		down = true;
+		                		dir = "down";
 		                		break;
 		                	case KeyEvent.VK_UP:
-		                		falseAll();
-		                		up = true;
+		                		dir = "up";
 		                		break;
 		                	case KeyEvent.VK_RIGHT:
-		                		falseAll();
-		                		right = true;
+		                		dir = "right";
 		                		break;
 		                	case KeyEvent.VK_LEFT:
-		                		falseAll();
-		                		left = true;
+		                		dir = "left";
 		                		break;
 		                	case KeyEvent.VK_SPACE:
-		                		falseAll();
+		                		dir = null;
 		                		break;
 		                }
 		            }
@@ -76,13 +73,7 @@ public class SnakeRunner extends Canvas
 		     
 //		       System.out.println("ending runner"); 
 		    }
-		 public void falseAll()
-		 {
-			 up = false;
-			 down = false;
-			 left = false;
-			 right = false;
-		 }
+
 		 public void paint(Graphics g)
 		 {
 //			 System.out.println("painting");
@@ -130,57 +121,56 @@ public class SnakeRunner extends Canvas
 		 }
 		 public void moveSnake()
 		 {
-			 int preX = snake.getHead().getxPos();
-			 int preY = snake.getHead().getyPos();
+			 int startX = snake.getHead().getxPos();
+			 int startY = snake.getHead().getyPos();
 			 try
 				 {
 			 if(!gameOver)
 				   {
-				if(up)
-				 {
-					if(snake.getHead().getyPos() > 0)
-						{
-							snake.getHead().setyPos(snake.getHead().getyPos()-24);
-						}
-					else
-						{
-							gameOver = true;
-						}
-				 }
-				else if(down)
-				 {
-					 if(snake.getHead().getyPos() < (ySize - 24))
-							{
-								snake.getHead().setyPos(snake.getHead().getyPos()+24);
-							}
-						else
-							{
-								gameOver = true;
-							}	
-				 }
-				else if(right)
-				 {
-					 if(snake.getHead().getxPos() < (xSize - 24))
-							{
-								snake.getHead().setxPos(snake.getHead().getxPos()+24);
-							}
-						else
-							{
-								gameOver = true;
-							}	
-				 }
-				else if(left)
-				 {
-					 if(snake.getHead().getxPos() > 0)
-							{
-								snake.getHead().setxPos(snake.getHead().getxPos()-24);
-							}
-						else
-							{
-								gameOver = true;
-							}	
-				 }
-				changeBodyPositions(snake, 1);
+					   switch(dir)
+					   {
+						   case "up":
+							   if(snake.getHead().getyPos() > 0)
+									{
+										snake.getHead().setyPos(snake.getHead().getyPos()-24);
+									}
+								else
+									{
+										gameOver = true;
+									}
+							   break;
+						   case "down":
+							   if(snake.getHead().getyPos() < (ySize - 24))
+									{
+										snake.getHead().setyPos(snake.getHead().getyPos()+24);
+									}
+								else
+									{
+										gameOver = true;
+									}
+							   break;
+						   case "right":
+							   if(snake.getHead().getxPos() < (xSize - 24))
+									{
+										snake.getHead().setxPos(snake.getHead().getxPos()+24);
+									}
+								else
+									{
+										gameOver = true;
+									}
+							   break;
+						   case "left":
+							   if(snake.getHead().getxPos() > 0)
+									{
+										snake.getHead().setxPos(snake.getHead().getxPos()-24);
+									}
+								else
+									{
+										gameOver = true;
+									}
+							   break;
+					   }
+				changeBodyPositions(snake, startX, startY, 1);
 				repaint(); 
 				Thread.sleep(100);
 				
@@ -198,7 +188,7 @@ public class SnakeRunner extends Canvas
 				
 				
 		 }
-		 public void changeBodyPositions(Snake s, int pos)
+		 public void changeBodyPositions(Snake s, int x1, int y1, int pos)
 		 {
 			 if(s.getSnakeBody().size() == pos)
 				 {
@@ -206,10 +196,11 @@ public class SnakeRunner extends Canvas
 				 }
 			 else
 				 {
-					 int x1 = s.getSnakeBody().get(pos - 1).getxPos();
-					 int y1 = s.getSnakeBody().get(pos - 1).getyPos();
-					 
-					 changeBodyPositions(s, pos + 1);
+					 int x2 = s.getSnakeBody().get(pos).getxPos();
+					 int y2 = s.getSnakeBody().get(pos).getyPos();
+					 s.getSnakeBody().get(pos).setxPos(x1);
+					 s.getSnakeBody().get(pos).setyPos(y1);
+					 changeBodyPositions(s, x2, y2, pos + 1);
 				 }
 		 }
 		 public void createNewFruit()
