@@ -30,16 +30,4 @@ public class Snake
 				snakeBody.add(new Body(x,y));
 			}
 		
-		public void changeBodyPositions(int x, int y)
-			{
-				if(snakeBody.size() > 1)
-					{
-						for(int i = 1; i < snakeBody.size(); i++)
-							{
-								snakeBody.get(i).setxPos(x);
-								snakeBody.get(i).setyPos(y);
-							}
-					}
-				
-			}
 	}

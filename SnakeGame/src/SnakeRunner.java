@@ -3,6 +3,7 @@ import java.awt.event.*;
 import javax.swing.JFrame;
 import java.util.ArrayList;
 
+@SuppressWarnings("serial")
 public class SnakeRunner extends Canvas
 	{
 		static Snake snake = new Snake();
@@ -179,7 +180,7 @@ public class SnakeRunner extends Canvas
 								gameOver = true;
 							}	
 				 }
-				snake.changeBodyPositions(preX, preY);
+				changeBodyPositions(snake, 1);
 				repaint(); 
 				Thread.sleep(100);
 				
@@ -196,6 +197,20 @@ public class SnakeRunner extends Canvas
 				 }
 				
 				
+		 }
+		 public void changeBodyPositions(Snake s, int pos)
+		 {
+			 if(s.getSnakeBody().size() == pos)
+				 {
+					 return;
+				 }
+			 else
+				 {
+					 int x1 = s.getSnakeBody().get(pos - 1).getxPos();
+					 int y1 = s.getSnakeBody().get(pos - 1).getyPos();
+					 
+					 changeBodyPositions(s, pos + 1);
+				 }
 		 }
 		 public void createNewFruit()
 		 {
