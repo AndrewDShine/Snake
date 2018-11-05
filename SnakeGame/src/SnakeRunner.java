@@ -9,10 +9,6 @@ public class SnakeRunner extends Canvas
 		static Snake snake = new Snake();
 		static int xSize = 876;
 		static int ySize = 780;
-		static boolean up=false;
-		static boolean down=false;
-		static boolean right=true;
-		static boolean left=false;
 		static String dir = "right";
 		static boolean gameOver=false;
 
@@ -215,26 +211,24 @@ public class SnakeRunner extends Canvas
 			 fruits.remove(fruits.get(0));
 			 int xPos = snake.getSnakeBody().get(snake.getSnakeBody().size()-1).getxPos();
 			 int yPos = snake.getSnakeBody().get(snake.getSnakeBody().size()-1).getyPos();
-			 if(up)
-				 {
+			 switch(dir)
+			 {
+				 case "up":
 					 snake.addToSnakeBody(xPos, yPos + 24);
-				 }
-			 else if(right)
-				 {
-					 snake.addToSnakeBody(xPos - 24, yPos);
-				 }
-			 else if(down)
-				 {
+					 break;
+				 case "down":
 					 snake.addToSnakeBody(xPos, yPos - 24);
-				 }
-			 else if(left)
-				 {
+					 break;
+				 case "right":
+					 snake.addToSnakeBody(xPos - 24, yPos);
+					 break;
+				 case "left":
 					 snake.addToSnakeBody(xPos + 24, yPos);
-				 }
-			 else
-				 {
+					 break;
+				 default:
 					 System.out.println("bet!");
-				 }
+					 break;
+			 }
 		 }
 	}
 
