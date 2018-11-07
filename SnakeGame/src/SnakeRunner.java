@@ -6,16 +6,18 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public class SnakeRunner extends Canvas
 	{
+		//Main Snake Object
 		static Snake snake = new Snake();
-		static int xSize = 876;
-		static int ySize = 780;
-		static String dir = "right";
+		//Primitives, holding various game info
+		static int xSize = 913;
+		static int ySize = 813;
+		static int score = 0;
 		static boolean gameOver=false;
-
-		static ArrayList<Body> fruits = new ArrayList<Body>();
 		static boolean needsFruit = true;
-		static boolean startGame=true;
-
+		static boolean startGame;
+		//Objects holding more game info
+		static String dir = "stopped";
+		static ArrayList<Body> fruits = new ArrayList<Body>();
 		
 		public static void main(String[] args)
 			{
@@ -60,7 +62,7 @@ public class SnakeRunner extends Canvas
 		                		dir = "left";
 		                		break;
 		                	case KeyEvent.VK_SPACE:
-		                		dir = null;
+		                		dir = "stopped";
 		                		break;
 		                	case KeyEvent.VK_ENTER:
 		                		startGame=true;
@@ -70,8 +72,6 @@ public class SnakeRunner extends Canvas
 		            }
 		            
 		        });
-		        
-		     
 //		       System.out.println("ending runner"); 
 		    }
 
@@ -102,7 +102,7 @@ public class SnakeRunner extends Canvas
 							 g.setColor(Color.white);
 							 g.setFont(z);
 							 g.drawString(credits.substring(i,  i+1), textX, 175);	 
-							 Thread.sleep(100); 
+							 Thread.sleep(50); 
 							 textX+=25; 
 						 }
 					 String start = "PRESS ENTER TO START";
@@ -114,7 +114,7 @@ public class SnakeRunner extends Canvas
 							 g.setColor(Color.white);
 							 g.setFont(z);
 							 g.drawString(start.substring(i,  i+1), textX, 400);	 
-							 Thread.sleep(100); 
+							 Thread.sleep(10); 
 							 textX+=25; 
 						 }
 				 }
@@ -129,6 +129,8 @@ public class SnakeRunner extends Canvas
 //					 g.fillRect(snake.getHead().getxPos(), snake.getHead().getyPos(), 24, 24);
 					 g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
 				 }
+			 g.setColor(Color.GREEN);
+			 g.fillRect(snake.getHead().getxPos(), snake.getHead().getyPos(), 24, 24);
 			 g.setColor(Color.RED);
 			 if(fruits.size() > 0)
 				 {
@@ -163,7 +165,7 @@ public class SnakeRunner extends Canvas
 				 }
 			 catch(Exception e)
 				 {
-					System.out.println("bet"); 
+//					System.out.println("bet?"); 
 				 }
 
 			
@@ -193,7 +195,7 @@ public class SnakeRunner extends Canvas
 						   case "up":
 							   if(snake.getHead().getyPos() > 0)
 									{
-										snake.getHead().setyPos(snake.getHead().getyPos()-24);
+										snake.getHead().setyPos(snake.getHead().getyPos()-25);
 									}
 								else
 									{
@@ -201,9 +203,9 @@ public class SnakeRunner extends Canvas
 									}
 							   break;
 						   case "down":
-							   if(snake.getHead().getyPos() < (ySize - 24))
+							   if(snake.getHead().getyPos() < (ySize - 25))
 									{
-										snake.getHead().setyPos(snake.getHead().getyPos()+24);
+										snake.getHead().setyPos(snake.getHead().getyPos()+25);
 									}
 								else
 									{
@@ -211,9 +213,9 @@ public class SnakeRunner extends Canvas
 									}
 							   break;
 						   case "right":
-							   if(snake.getHead().getxPos() < (xSize - 24))
+							   if(snake.getHead().getxPos() < (xSize - 25))
 									{
-										snake.getHead().setxPos(snake.getHead().getxPos()+24);
+										snake.getHead().setxPos(snake.getHead().getxPos()+25);
 									}
 								else
 									{
@@ -223,7 +225,7 @@ public class SnakeRunner extends Canvas
 						   case "left":
 							   if(snake.getHead().getxPos() > 0)
 									{
-										snake.getHead().setxPos(snake.getHead().getxPos()-24);
+										snake.getHead().setxPos(snake.getHead().getxPos()-25);
 									}
 								else
 									{
@@ -268,40 +270,40 @@ public class SnakeRunner extends Canvas
 		 }
 		 public void createNewFruit()
 		 {
-			 int fruitX = ((int) (Math.random()*37)) * 24;
-			 int fruitY = ((int) (Math.random()*33)) * 24;
+			 int fruitX = ((int) (Math.random()*37)) * 25;
+			 int fruitY = ((int) (Math.random()*33)) * 25;
 			 fruits.add(new Body(fruitX,fruitY));
 			 needsFruit = false;
 		 }
 		 public void eatFruit()
 		 {
 			 fruits.remove(fruits.get(0));
+			 score += 1;
 			 int xPos = snake.getSnakeBody().get(snake.getSnakeBody().size()-1).getxPos();
 			 int yPos = snake.getSnakeBody().get(snake.getSnakeBody().size()-1).getyPos();
-			 int size = snake.getSnakeBody().size();
-			 size /= 3;
-			 for(int i = 1; i < (size) + 2; i++)
+			 int size = ((score / 3) * 2) + 1;
+			 for(int i = 0; i < size; i++)
 				 {
 					 switch(dir)
 					 {
 						 case "up":
-							 snake.addToSnakeBody(xPos, yPos + 24);
+							 snake.addToSnakeBody(-25, -25);
 							 break;
 						 case "down":
-							 snake.addToSnakeBody(xPos, yPos - 24);
+							 snake.addToSnakeBody(-25, -25);
 							 break;
 						 case "right":
-							 snake.addToSnakeBody(xPos - 24, yPos);
+							 snake.addToSnakeBody(-25, -25);
 							 break;
 						 case "left":
-							 snake.addToSnakeBody(xPos + 24, yPos);
+							 snake.addToSnakeBody(-25, -25);
 							 break;
 						 default:
 							 System.out.println("bet!");
 							 break;
 					 }
 				 }
-			 System.out.println(snake.getSnakeBody().size());
+//			 System.out.println(snake.getSnakeBody().size());
 			 
 		 }
 	}
