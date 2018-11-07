@@ -14,6 +14,7 @@ public class SnakeRunner extends Canvas
 
 		static ArrayList<Body> fruits = new ArrayList<Body>();
 		static boolean needsFruit = true;
+		static int score = 0;
 		static boolean startGame;
 
 		
@@ -262,11 +263,11 @@ public class SnakeRunner extends Canvas
 		 public void eatFruit()
 		 {
 			 fruits.remove(fruits.get(0));
+			 score += 1;
 			 int xPos = snake.getSnakeBody().get(snake.getSnakeBody().size()-1).getxPos();
 			 int yPos = snake.getSnakeBody().get(snake.getSnakeBody().size()-1).getyPos();
-			 int size = snake.getSnakeBody().size();
-			 size /= 3;
-			 for(int i = 1; i < (size) + 2; i++)
+			 int size = ((score / 3) * 2) + 1;
+			 for(int i = 0; i < size; i++)
 				 {
 					 switch(dir)
 					 {
