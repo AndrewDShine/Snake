@@ -165,7 +165,7 @@ public class SnakeRunner extends Canvas
 				 }
 			 catch(Exception e)
 				 {
-					System.out.println("bet"); 
+//					System.out.println("bet?"); 
 				 }
 
 			
@@ -273,23 +273,23 @@ public class SnakeRunner extends Canvas
 					 switch(dir)
 					 {
 						 case "up":
-							 snake.addToSnakeBody(xPos, yPos + 25);
+							 snake.addToSnakeBody(-25, -25);
 							 break;
 						 case "down":
-							 snake.addToSnakeBody(xPos, yPos - 25);
+							 snake.addToSnakeBody(-25, -25);
 							 break;
 						 case "right":
-							 snake.addToSnakeBody(xPos - 25, yPos);
+							 snake.addToSnakeBody(-25, -25);
 							 break;
 						 case "left":
-							 snake.addToSnakeBody(xPos + 25, yPos);
+							 snake.addToSnakeBody(-25, -25);
 							 break;
 						 default:
 							 System.out.println("bet!");
 							 break;
 					 }
 				 }
-			 System.out.println(snake.getSnakeBody().size());
+//			 System.out.println(snake.getSnakeBody().size());
 			 
 		 }
 	}
