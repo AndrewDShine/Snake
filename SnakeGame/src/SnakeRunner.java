@@ -21,7 +21,6 @@ public class SnakeRunner extends Canvas
 		
 		public static void main(String[] args)
 			{
-//				System.out.println("starting main");
 				JFrame frame = new JFrame("Snake");
 		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		        SnakeRunner ex = new SnakeRunner();
@@ -30,16 +29,9 @@ public class SnakeRunner extends Canvas
 		        frame.setResizable(false);
 		        frame.setVisible(true);
 		        ex.requestFocus();
-//		        while(true)
-//		        	{
-//		        		ex.moveSnake();
-//		        		ex.repaint();
-//		        	}
-//		        System.out.println("ending main");
 			}
 		 public SnakeRunner()
 			 {
-//		        System.out.println("starting runner");
 				setSize(new Dimension(xSize, ySize));
 		        setBackground(Color.BLACK);
 		        addKeyListener(new KeyAdapter() 
@@ -72,7 +64,6 @@ public class SnakeRunner extends Canvas
 		            }
 		            
 		        });
-//		       System.out.println("ending runner"); 
 		    }
 
 		 public void paint(Graphics g)
@@ -120,13 +111,11 @@ public class SnakeRunner extends Canvas
 				 }
 			 else
 				 {
-//			 System.out.println("painting");
 			 if(!gameOver)
 			 {
 			 g.setColor(Color.CYAN);
 			 for(Body b: snake.getSnakeBody())
 				 {
-//					 g.fillRect(snake.getHead().getxPos(), snake.getHead().getyPos(), 24, 24);
 					 g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
 				 }
 			 g.setColor(Color.GREEN);
@@ -148,7 +137,6 @@ public class SnakeRunner extends Canvas
 	            	}
 		        for(Body b: snake.getSnakeBody())
 		        	{
-//		        		System.out.println(b.getxPos() + " " + b.getyPos());
 		        		if((b.getxPos() == fruits.get(0).getxPos()) && (b.getyPos() == fruits.get(0).getyPos()))
 		        			{
 		        				eatFruit();
@@ -302,9 +290,7 @@ public class SnakeRunner extends Canvas
 							 System.out.println("bet!");
 							 break;
 					 }
-				 }
-//			 System.out.println(snake.getSnakeBody().size());
-			 
+				 }			 
 		 }
 	}
 
