@@ -174,6 +174,18 @@ public class SnakeRunner extends Canvas
 		 {
 			 int startX = snake.getHead().getxPos();
 			 int startY = snake.getHead().getyPos();
+			 
+			 for(int i=1; i< snake.getSnakeBody().size(); i++)
+				  {
+					if(!(snake.getSnakeBody().size()<3))
+						{
+					if((snake.getHead().getxPos()==snake.getSnakeBody().get(i).getxPos())&&(snake.getHead().getyPos()==snake.getSnakeBody().get(i).getyPos()))
+					 {
+					  gameOver=true;	
+					 }
+						}
+				 }
+			 
 			 try
 				 {
 			 if(!gameOver)
@@ -224,6 +236,8 @@ public class SnakeRunner extends Canvas
 				changeBodyPositions(snake, startX, startY, 1);
 				repaint(); 
 				Thread.sleep(100);
+				
+				 
 				
 				   }
 			 else
