@@ -14,6 +14,7 @@ public class SnakeRunner extends Canvas
 
 		static ArrayList<Body> fruits = new ArrayList<Body>();
 		static boolean needsFruit = true;
+		static boolean startGame;
 
 		
 		public static void main(String[] args)
@@ -61,6 +62,10 @@ public class SnakeRunner extends Canvas
 		                	case KeyEvent.VK_SPACE:
 		                		dir = null;
 		                		break;
+		                	case KeyEvent.VK_ENTER:
+		                		startGame=true;
+		                		repaint();
+		                		break;
 		                }
 		            }
 		            
@@ -72,6 +77,49 @@ public class SnakeRunner extends Canvas
 
 		 public void paint(Graphics g)
 		 {
+			 Font f=new Font("bet", Font.PLAIN, 50);
+			 Font x=new Font("bet", Font.PLAIN, 100);
+			 Font z=new Font("bet", Font.PLAIN, 15);
+			 try
+				 {
+			 if(!startGame)
+				 {
+					String snake= "SNAKE";
+					 int textX=198;
+					 for(int i=0; i<snake.length(); i++)
+						 {
+							 g.setColor(Color.white);
+							 g.setFont(x);
+							 g.drawString(snake.substring(i, i+1), textX, 125);	 
+							 Thread.sleep(100); 
+							 textX+=100;
+						 }
+					 
+					String credits = "A GAME BY ANDREW AND JOSH";
+					 textX=128;
+					 for(int i=0; i<credits.length(); i++)
+						 {
+							 g.setColor(Color.white);
+							 g.setFont(z);
+							 g.drawString(credits.substring(i,  i+1), textX, 175);	 
+							 Thread.sleep(100); 
+							 textX+=25; 
+						 }
+					 String start = "PRESS ENTER TO START";
+					 
+					 textX=178;
+					 
+					 for(int i=0; i<start.length(); i++)
+						 {
+							 g.setColor(Color.white);
+							 g.setFont(z);
+							 g.drawString(start.substring(i,  i+1), textX, 400);	 
+							 Thread.sleep(100); 
+							 textX+=25; 
+						 }
+				 }
+			 else
+				 {
 //			 System.out.println("painting");
 			 if(!gameOver)
 			 {
@@ -108,10 +156,15 @@ public class SnakeRunner extends Canvas
 			 else
 			 {
 					 g.setColor(Color.white);
-					 Font f=new Font("bet", Font.PLAIN, 50);
 					 g.setFont(f);
 					 g.drawString("GAME OVER", 288, 390);	 
 			 }
+			    }
+				 }
+			 catch(Exception e)
+				 {
+					System.out.println("bet"); 
+				 }
 
 			
 		 }
