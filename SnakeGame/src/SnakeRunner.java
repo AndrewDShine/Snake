@@ -103,7 +103,7 @@ public class SnakeRunner extends Canvas
 							 g.setColor(Color.white);
 							 g.setFont(z);
 							 g.drawString(credits.substring(i,  i+1), textX, 175);	 
-							 Thread.sleep(100); 
+							 Thread.sleep(50); 
 							 textX+=25; 
 						 }
 					 String start = "PRESS ENTER TO START";
@@ -115,7 +115,7 @@ public class SnakeRunner extends Canvas
 							 g.setColor(Color.white);
 							 g.setFont(z);
 							 g.drawString(start.substring(i,  i+1), textX, 400);	 
-							 Thread.sleep(100); 
+							 Thread.sleep(10); 
 							 textX+=25; 
 						 }
 				 }
