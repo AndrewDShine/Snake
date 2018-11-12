@@ -11,13 +11,13 @@ public class SnakeRunner extends Canvas
 		//Primitives, holding various game info
 		static int xSize = 913;
 		static int ySize = 813;
-		static int score = 0;
+		static int fruitsEaten = 0;
 		static boolean gameOver=false;
 		static boolean needsFruit = true;
 		static boolean startGame;
 		//Objects holding more game info
 		static String dir = "stopped";
-		static ArrayList<Body> fruits = new ArrayList<Body>();
+		static Body fruit = new Body(xSize + 25, ySize + 25);
 		
 		public static void main(String[] args)
 			{
@@ -111,33 +111,27 @@ public class SnakeRunner extends Canvas
 				 }
 			 else
 				 {
-			 if(!gameOver)
-			 {
-			 g.setColor(Color.CYAN);
-			 for(Body b: snake.getSnakeBody())
+				if(!gameOver)
 				 {
-					 g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
-				 }
-			 g.setColor(Color.GREEN);
-			 g.fillRect(snake.getHead().getxPos(), snake.getHead().getyPos(), 24, 24);
-			 g.setColor(Color.RED);
-			 if(fruits.size() > 0)
-				 {
-					 g.fillRect(fruits.get(0).getxPos(), fruits.get(0).getyPos(), 24, 24);
-				 }
-			 else
-				 {
-					 needsFruit = true;
-				 }
+					 if(needsFruit)
+			            	{
+			            		createNewFruit();
+			            	}
+				 g.setColor(Color.CYAN);
+			 	for(Body b: snake.getSnakeBody())
+				 	{
+					 	g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
+				 	}
+			 	g.setColor(Color.GREEN);
+			 	g.fillRect(snake.getHead().getxPos(), snake.getHead().getyPos(), 24, 24);
+			 	g.setColor(Color.RED);
+				g.fillRect(fruit.getxPos(), fruit.getyPos(), 24, 24);
 				moveSnake();
 			 
-			 if(needsFruit)
-	            	{
-	            		createNewFruit();
-	            	}
+			 
 		        for(Body b: snake.getSnakeBody())
 		        	{
-		        		if((b.getxPos() == fruits.get(0).getxPos()) && (b.getyPos() == fruits.get(0).getyPos()))
+		        		if((b.getxPos() == fruit.getxPos()) && (b.getyPos() == fruit.getyPos()))
 		        			{
 		        				eatFruit();
 		        			}
@@ -260,37 +254,19 @@ public class SnakeRunner extends Canvas
 		 {
 			 int fruitX = ((int) (Math.random()*37)) * 25;
 			 int fruitY = ((int) (Math.random()*33)) * 25;
-			 fruits.add(new Body(fruitX,fruitY));
+			 fruit.setxPos(fruitX);
+			 fruit.setyPos(fruitY);
 			 needsFruit = false;
 		 }
 		 public void eatFruit()
 		 {
-			 fruits.remove(fruits.get(0));
-			 score += 1;
-			 int xPos = snake.getSnakeBody().get(snake.getSnakeBody().size()-1).getxPos();
-			 int yPos = snake.getSnakeBody().get(snake.getSnakeBody().size()-1).getyPos();
-			 int size = ((score / 3) * 2) + 1;
+			 fruitsEaten += 1;
+			 int size = ((fruitsEaten / 3) * 2) + 1;
 			 for(int i = 0; i < size; i++)
 				 {
-					 switch(dir)
-					 {
-						 case "up":
-							 snake.addToSnakeBody(-25, -25);
-							 break;
-						 case "down":
-							 snake.addToSnakeBody(-25, -25);
-							 break;
-						 case "right":
-							 snake.addToSnakeBody(-25, -25);
-							 break;
-						 case "left":
-							 snake.addToSnakeBody(-25, -25);
-							 break;
-						 default:
-							 System.out.println("bet!");
-							 break;
-					 }
-				 }			 
+					 snake.addToSnakeBody(-25, -25);
+				 }
+			 needsFruit = true;
 		 }
 	}
 
