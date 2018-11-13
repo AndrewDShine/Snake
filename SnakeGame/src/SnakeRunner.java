@@ -118,7 +118,7 @@ public class SnakeRunner extends Canvas
 			 Font q = new Font("bet", Font.PLAIN, 25); 
 			 g.setColor(Color.white);
 			 g.setFont(q);
-			 g.drawString(String.valueOf("SCORE: "+String.valueOf(snake.size()-1)), 765, 25);
+			 g.drawString(String.valueOf("SCORE: "+String.valueOf(snake.size()-1)), 10, 25);
 				 
 			 g.setColor(Color.CYAN);
 			 for(Body b: snake)
@@ -129,36 +129,38 @@ public class SnakeRunner extends Canvas
 			 g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
 			 g.setColor(Color.RED);
 			 g.fillRect(fruit.getxPos(), fruit.getyPos(), 24, 24);
+			 
+			 if(needsFruit)
+				 {
+					 createNewFruit();
+				 }
+					 g.setColor(Color.CYAN);
+				 	for(Body b: snake)
+					 	{
+						 	g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
+					 	}
+				 	g.setColor(Color.GREEN);
+				 	g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
+				 	g.setColor(Color.RED);
+					g.fillRect(fruit.getxPos(), fruit.getyPos(), 24, 24);
+					moveSnake();
+				 
+				 
+			        for(Body b: snake)
+			        	{
+			        		if((b.getxPos() == fruit.getxPos()) && (b.getyPos() == fruit.getyPos()))
+			        			{
+			        				eatFruit();
+			        			}
+			        	}
 			 }
-			 else
+			 else 
 				 {
 						 g.setColor(Color.white);
 						 g.setFont(f);
 						 g.drawString("GAME OVER", 288, 390);	 
 				 }
-			 if(needsFruit)
-			 {
-				 createNewFruit();
-			 }
-				 g.setColor(Color.CYAN);
-			 	for(Body b: snake)
-				 	{
-					 	g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
-				 	}
-			 	g.setColor(Color.GREEN);
-			 	g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
-			 	g.setColor(Color.RED);
-				g.fillRect(fruit.getxPos(), fruit.getyPos(), 24, 24);
-				moveSnake();
 			 
-			 
-		        for(Body b: snake)
-		        	{
-		        		if((b.getxPos() == fruit.getxPos()) && (b.getyPos() == fruit.getyPos()))
-		        			{
-		        				eatFruit();
-		        			}
-		        	}
 			 
 			    }
 				 }
