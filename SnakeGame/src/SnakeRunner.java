@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 import java.util.ArrayList;
 
 @SuppressWarnings("serial")
