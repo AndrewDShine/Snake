@@ -11,6 +11,7 @@ public class SnakeRunner extends Canvas
 		//Primitives, holding various game info
 		static int xSize = 913;
 		static int ySize = 813;
+		static int score = snake.getSnakeBody().size()-1;
 		static int fruitsEaten = 0;
 		static boolean gameOver=false;
 		static boolean needsFruit = true;
@@ -112,7 +113,26 @@ public class SnakeRunner extends Canvas
 				 }
 			 else
 				 {
-				if(!gameOver)
+			 if(!gameOver)
+			 {
+			 Font q = new Font("bet", Font.PLAIN, 25); 
+			 g.setColor(Color.white);
+			 g.setFont(q);
+			 g.drawString(String.valueOf("SCORE: "+String.valueOf(snake.getSnakeBody().size()-1)), 765, 25);
+				 
+			 g.setColor(Color.CYAN);
+			 for(Body b: snake.getSnakeBody())
+				 {
+					 g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
+				 }
+			 g.setColor(Color.GREEN);
+			 g.fillRect(snake.getHead().getxPos(), snake.getHead().getyPos(), 24, 24);
+			 g.setColor(Color.RED);
+			 if(fruits.size() > 0)
+				 {
+					 g.fillRect(fruits.get(0).getxPos(), fruits.get(0).getyPos(), 24, 24);
+				 }
+			 else
 				 {
 					 if(needsFruit)
 			            	{
