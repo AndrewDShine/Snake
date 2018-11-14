@@ -6,6 +6,7 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public class SnakeRunner extends Canvas
 	{
+		static ArrayList<Score> highScores = new ArrayList<Score>();
 		//Main Snake Object
 		static ArrayList<Body> snake = new ArrayList<Body>();
 		//Primitives, holding various game info
@@ -31,9 +32,13 @@ public class SnakeRunner extends Canvas
 		        frame.setResizable(false);
 		        frame.setVisible(true);
 		        ex.requestFocus();
+		        
+		        UploadScores.writeScores();
+				UploadScores.readScores();
 			}
 		 public SnakeRunner()
 			 {
+				 
 				setSize(new Dimension(xSize, ySize));
 		        setBackground(Color.BLACK);
 		        addKeyListener(new KeyAdapter() 
@@ -119,6 +124,10 @@ public class SnakeRunner extends Canvas
 			 g.setColor(Color.white);
 			 g.setFont(q);
 			 g.drawString(String.valueOf("SCORE: "+String.valueOf(snake.size()-1)), 10, 25);
+			 
+			 g.setColor(Color.white);
+			 g.setFont(q);
+			 g.drawString("HIGH SCORE: "+String.valueOf(highScores.get(0).getScore()), 690, 25);
 				 
 			 g.setColor(Color.CYAN);
 			 for(Body b: snake)
@@ -158,7 +167,11 @@ public class SnakeRunner extends Canvas
 				 {
 						 g.setColor(Color.white);
 						 g.setFont(f);
-						 g.drawString("GAME OVER", 288, 390);	 
+						 g.drawString("GAME OVER", 288, 390);	
+						 
+						 g.setColor(Color.white);
+						 g.setFont(z);
+						 g.drawString("YOUR SCORE WAS: "+String.valueOf(snake.size()-1), 288, 500);
 				 }
 			 
 			 
