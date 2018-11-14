@@ -152,10 +152,11 @@ public class SnakeRunner extends Canvas
 					 	{
 						 	g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
 					 	}
-				 	g.setColor(Color.GREEN);
-				 	g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
+				 	
 				 	g.setColor(Color.RED);
 					g.fillRect(fruit.getxPos(), fruit.getyPos(), 24, 24);
+					g.setColor(Color.GREEN);
+				 	g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
 				 
 				 
 			        for(Body b: snake)
