@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 import java.util.ArrayList;
 
 @SuppressWarnings("serial")
@@ -78,6 +79,18 @@ public class SnakeRunner extends Canvas
 		            }
 		            
 		        });
+		        Timer timer = new Timer(100, new ActionListener(){
+		        	@Override
+		        	public void actionPerformed(ActionEvent e)
+		        	{
+		        		if(startGame)
+		        			{
+		        				moveSnake();
+		        			}
+		        	}
+		        
+		        });
+		        timer.start();
 		    }
 
 		 public void paint(Graphics g)
@@ -151,11 +164,11 @@ public class SnakeRunner extends Canvas
 					 	{
 						 	g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
 					 	}
-				 	g.setColor(Color.GREEN);
-				 	g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
+				 	
 				 	g.setColor(Color.RED);
 					g.fillRect(fruit.getxPos(), fruit.getyPos(), 24, 24);
-					moveSnake();
+					g.setColor(Color.GREEN);
+				 	g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
 				 
 				 
 			        for(Body b: snake)
@@ -248,7 +261,6 @@ public class SnakeRunner extends Canvas
 					   }
 				changeBodyPositions(startX, startY, 1);
 				repaint(); 
-				Thread.sleep(100);
 				
 				 
 				
