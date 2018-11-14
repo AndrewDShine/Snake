@@ -67,6 +67,18 @@ public class SnakeRunner extends Canvas
 		            }
 		            
 		        });
+		        Timer timer = new Timer(100, new ActionListener(){
+		        	@Override
+		        	public void actionPerformed(ActionEvent e)
+		        	{
+		        		if(startGame)
+		        			{
+		        				moveSnake();
+		        			}
+		        	}
+		        
+		        });
+		        timer.start();
 		    }
 
 		 public void paint(Graphics g)
@@ -144,7 +156,6 @@ public class SnakeRunner extends Canvas
 				 	g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
 				 	g.setColor(Color.RED);
 					g.fillRect(fruit.getxPos(), fruit.getyPos(), 24, 24);
-					moveSnake();
 				 
 				 
 			        for(Body b: snake)
@@ -237,7 +248,6 @@ public class SnakeRunner extends Canvas
 					   }
 				changeBodyPositions(startX, startY, 1);
 				repaint(); 
-				Thread.sleep(100);
 				
 				 
 				
