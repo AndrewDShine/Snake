@@ -328,6 +328,7 @@ public class SnakeRunner extends Canvas
 			 snake.clear();
 			 snake.add(new Body(0,0));
 			 dir = "stopped";
+			 score = 0;
 		 }
 	}
 
