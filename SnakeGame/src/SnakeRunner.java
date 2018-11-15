@@ -73,6 +73,11 @@ public class SnakeRunner extends Canvas
 		                		break;
 		                	case KeyEvent.VK_ENTER:
 		                		startGame=true;
+		                		if(gameOver)
+		                			{
+		                				gameOver = false;
+				                		restartGame();
+		                			}
 		                		repaint();
 		                		break;
 		                }
@@ -98,6 +103,7 @@ public class SnakeRunner extends Canvas
 			 Font f=new Font("bet", Font.PLAIN, 50);
 			 Font x=new Font("bet", Font.PLAIN, 100);
 			 Font z=new Font("bet", Font.PLAIN, 15);
+			 Font o=new Font("bet", Font.ROMAN_BASELINE, 15);
 			 try
 				 {
 			 if(!startGame)
@@ -183,7 +189,9 @@ public class SnakeRunner extends Canvas
 				 {
 						 g.setColor(Color.white);
 						 g.setFont(f);
-						 g.drawString("GAME OVER", 288, 390);	 
+						 g.drawString("GAME OVER", 288, 370);
+						 g.setFont(o);
+						 g.drawString("PRESS 'ENTER' TO RESTART", 348, 410);
 				 }
 			 
 			 
@@ -226,6 +234,7 @@ public class SnakeRunner extends Canvas
 								else
 									{
 										gameOver = true;
+										dir = "stopped";
 									}
 							   break;
 						   case "down":
@@ -236,6 +245,7 @@ public class SnakeRunner extends Canvas
 								else
 									{
 										gameOver = true;
+										dir = "stopped";
 									}
 							   break;
 						   case "right":
@@ -246,6 +256,7 @@ public class SnakeRunner extends Canvas
 								else
 									{
 										gameOver = true;
+										dir = "stopped";
 									}
 							   break;
 						   case "left":
@@ -256,6 +267,7 @@ public class SnakeRunner extends Canvas
 								else
 									{
 										gameOver = true;
+										dir = "stopped";
 									}
 							   break;
 					   }
@@ -310,6 +322,12 @@ public class SnakeRunner extends Canvas
 					 snake.add(new Body(-25, -25));
 				 }
 			 needsFruit = true;
+		 }
+		 public void restartGame()
+		 {
+			 snake.clear();
+			 snake.add(new Body(0,0));
+			 dir = "stopped";
 		 }
 	}
 
