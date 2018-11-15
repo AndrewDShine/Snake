@@ -45,25 +45,25 @@ public class SnakeRunner extends Canvas
 		                switch(e.getKeyCode())
 		                {
 		                	case KeyEvent.VK_DOWN:
-		                		if(!dir.equals("up") || (snake.size() == 1))
+		                		if((!dir.equals("up") || (snake.size() == 1)) && startGame)
 		                			{
 		                				dir = "down";
 		                			}
 		                		break;
 		                	case KeyEvent.VK_UP:
-		                		if(!dir.equals("down") || (snake.size() == 1))
+		                		if((!dir.equals("down") || (snake.size() == 1)) && startGame)
 		                			{
 		                				dir = "up";
 		                			}
 		                		break;
 		                	case KeyEvent.VK_RIGHT:
-		                		if(!dir.equals("left") || (snake.size() == 1))
+		                		if((!dir.equals("left") || (snake.size() == 1)) && startGame)
 		                			{
 		                				dir = "right";
 		                			}
 		                		break;
 		                	case KeyEvent.VK_LEFT:
-		                		if(!dir.equals("right") || (snake.size() == 1))
+		                		if((!dir.equals("right") || (snake.size() == 1)) && startGame)
 		                			{
 		                				dir = "left";
 		                			}
