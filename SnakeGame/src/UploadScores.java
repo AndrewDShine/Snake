@@ -8,7 +8,7 @@ public class UploadScores
 	{
 		public static void writeScores()
 		{
-			String filename = "HighScores.txt";
+			String filename = "HighScores.ser";
 			ArrayList<Score> tempHighScores = new ArrayList<Score>();
 			
 			try
@@ -16,17 +16,7 @@ public class UploadScores
 					FileOutputStream file = new FileOutputStream(filename);
 					ObjectOutputStream out = new ObjectOutputStream(file);
 					
-					tempHighScores.add(new Score(10,"JOS"));
-					tempHighScores.add(new Score(9, "AND"));
-					tempHighScores.add(new Score(8, "MIK"));
-					tempHighScores.add(new Score(7, "WOW"));
-					tempHighScores.add(new Score(6, "JAM"));
-					tempHighScores.add(new Score(5, "MAX"));
-					tempHighScores.add(new Score(4, "CAL"));
-					tempHighScores.add(new Score(3, "ANI"));
-					tempHighScores.add(new Score(2, "DUD"));
-					tempHighScores.add(new Score(1, "TOM"));
-					
+					tempHighScores = SnakeRunner.highScores;
 
 					out.writeObject(tempHighScores);
 					
@@ -42,15 +32,18 @@ public class UploadScores
 		}
 		public static void readScores()
 		{
-			String filename ="HighScores.txt";
-			ArrayList<Score> tempHighScores = new ArrayList<Score>();
+			String filename ="HighScores.ser";
+			ArrayList<Score> tempHighScores2 = new ArrayList<Score>();
 			
 			try
 				{
 			FileInputStream file= new FileInputStream(filename);
 			ObjectInputStream in = new ObjectInputStream(file);
 			
-			SnakeRunner.highScores=(ArrayList<Score>)in.readObject();
+			tempHighScores2=(ArrayList<Score>)in.readObject();
+			SnakeRunner.highScores= tempHighScores2;
+			
+
 			
 			in.close();
 			file.close();
@@ -60,7 +53,8 @@ public class UploadScores
 					System.out.println("b e     t");
 				}
 			
-//			Collections.sort(SnakeRunner.highScores, new ScoreSorter());
-//			Collections.reverse(SnakeRunner.highScores);
+		
+			Collections.sort(SnakeRunner.highScores, new ScoreSorter());
+			Collections.reverse(SnakeRunner.highScores);
 		}
 	}

@@ -14,15 +14,17 @@ public class SnakeRunner extends Canvas
 		static int ySize = 813;
 		static int score = snake.size()-1;
 		static int fruitsEaten = 0;
-		static boolean gameOver=false;
+		static boolean gameOver=true;
 		static boolean needsFruit = true;
-		static boolean startGame;
+		static boolean startGame=true;
+		static boolean enterHighScore;
 		//Objects holding more game info
 		static String dir = "stopped";
 		static Body fruit = new Body(xSize + 25, ySize + 25);
 		
 		public static void main(String[] args)
 			{
+				
 				snake.add(new Body(0,0));
 				JFrame frame = new JFrame("Snake");
 		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,12 +35,13 @@ public class SnakeRunner extends Canvas
 		        frame.setVisible(true);
 		        ex.requestFocus();
 		        
-		        UploadScores.writeScores();
+		    
 				UploadScores.readScores();
 			}
 		 public SnakeRunner()
 			 {
-				 
+				UploadScores.writeScores();
+				UploadScores.readScores();
 				setSize(new Dimension(xSize, ySize));
 		        setBackground(Color.BLACK);
 		        addKeyListener(new KeyAdapter() 
@@ -125,9 +128,12 @@ public class SnakeRunner extends Canvas
 			 g.setFont(q);
 			 g.drawString(String.valueOf("SCORE: "+String.valueOf(snake.size()-1)), 10, 25);
 			 
+			 if(highScores.size()>0)
+				 {
 			 g.setColor(Color.white);
 			 g.setFont(q);
 			 g.drawString("HIGH SCORE: "+String.valueOf(highScores.get(0).getScore()), 690, 25);
+				 }
 				 
 			 g.setColor(Color.CYAN);
 			 for(Body b: snake)
@@ -163,6 +169,24 @@ public class SnakeRunner extends Canvas
 			        			}
 			        	}
 			 }
+			 else if(enterHighScore)
+				 {
+					 g.setColor(Color.white);
+					 g.setFont(f);
+					 g.drawString("ENTER YOUR NAME", 218, 290);
+					 
+					 g.setColor(Color.white);
+					 g.setFont(z);
+					 g.drawString("A", 300, 400);
+					 
+					 g.setColor(Color.white);
+					 g.setFont(z);
+					 g.drawString("A", 315, 400);
+					 
+					 g.setColor(Color.white);
+					 g.setFont(z);
+					 g.drawString("A", 330, 400);
+				 }
 			 else 
 				 {
 						 g.setColor(Color.white);
@@ -171,7 +195,13 @@ public class SnakeRunner extends Canvas
 						 
 						 g.setColor(Color.white);
 						 g.setFont(z);
-						 g.drawString("YOUR SCORE WAS: "+String.valueOf(snake.size()-1), 288, 500);
+						 g.drawString("YOUR SCORE WAS: "+String.valueOf(snake.size()-1), 360, 420);
+						 
+						 Thread.sleep(000);
+						 
+						 enterHighScore=true;
+						 
+						 repaint();
 				 }
 			 
 			 

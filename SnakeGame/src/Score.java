@@ -1,15 +1,16 @@
 import java.io.*;
 
-@SuppressWarnings("serial")
 public class Score implements Serializable
 	{
+		private static final long serialVersionUID =1L;
+		
 		private String name;
 		private int score;
 		
 		public Score(int s, String n)
 		{
-		 s=score;
-		 n=name;
+		 score=s;
+		 name=n;
 		}
 
 		public String getName()
