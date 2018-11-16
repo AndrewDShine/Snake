@@ -91,6 +91,7 @@ public class SnakeRunner extends Canvas
 		        		if(startGame)
 		        			{
 		        				moveSnake();
+		        				repaint();
 		        			}
 		        	}
 		        
@@ -272,14 +273,14 @@ public class SnakeRunner extends Canvas
 							   break;
 					   }
 				changeBodyPositions(startX, startY, 1);
-				repaint(); 
+//				repaint(); 
 				
 				 
 				
 				   }
 			 else
 			 {
-			 repaint(); 
+//			 repaint(); 
 			 }
 				 }
 			 catch(Exception e)
