@@ -7,6 +7,8 @@ import java.util.ArrayList;
 @SuppressWarnings("serial")
 public class SnakeRunner extends Canvas
 	{
+		final static String [] alphaBET= {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+		//Alphabet Array
 		static ArrayList<Score> highScores = new ArrayList<Score>();
 		//Main Snake Object
 		static ArrayList<Body> snake = new ArrayList<Body>();
@@ -19,6 +21,8 @@ public class SnakeRunner extends Canvas
 		static boolean needsFruit = true;
 		static boolean startGame=false;
 		static boolean enterHighScore;
+		static int counter = 0;
+		final static int [] alphaBETCounter = {0, 0, 0};
 		//Objects holding more game info
 		static String dir = "stopped";
 		static Body fruit = new Body(xSize + 25, ySize + 25);
@@ -53,27 +57,71 @@ public class SnakeRunner extends Canvas
 		                switch(e.getKeyCode())
 		                {
 		                	case KeyEvent.VK_DOWN:
-		                		if((!dir.equals("up") || (snake.size() == 1)) && startGame)
+		                		if((!dir.equals("up") || (snake.size() == 1)) && startGame&&(!gameOver))
 		                			{
 		                				dir = "down";
 		                			}
+		                		else if((gameOver)&&(enterHighScore))
+		                			{
+		                				if(alphaBETCounter[counter]==0)
+		                					{
+		                						alphaBETCounter[counter] = 25;
+		                					}
+		                				else
+		                					{
+		                						alphaBETCounter[counter]-=1;
+		                					}
+		                			}
 		                		break;
 		                	case KeyEvent.VK_UP:
-		                		if((!dir.equals("down") || (snake.size() == 1)) && startGame)
+		                		if((!dir.equals("down") || (snake.size() == 1)) && startGame && (!gameOver))
 		                			{
 		                				dir = "up";
 		                			}
+		                		else if((gameOver)&&(enterHighScore))
+		                			{
+		                				if(alphaBETCounter[0]==25)
+		                					{
+		                						alphaBETCounter[counter] = 0;
+		                					}
+		                				else
+		                					{
+		                						alphaBETCounter[counter]+=1;
+		                					}
+		                			}
 		                		break;
 		                	case KeyEvent.VK_RIGHT:
-		                		if((!dir.equals("left") || (snake.size() == 1)) && startGame)
+		                		if((!dir.equals("left") || (snake.size() == 1)) && startGame && (!gameOver))
 		                			{
 		                				dir = "right";
 		                			}
+		                		else if((gameOver)&&(enterHighScore))
+		                			{
+		                				if(counter == 2)
+		                					{
+		                						counter = 0;
+		                					}
+		                				else
+		                					{
+		                						counter+=1;
+		                					}
+		                			}
 		                		break;
 		                	case KeyEvent.VK_LEFT:
-		                		if((!dir.equals("right") || (snake.size() == 1)) && startGame)
+		                		if((!dir.equals("right") || (snake.size() == 1)) && startGame && (!gameOver))
 		                			{
 		                				dir = "left";
+		                			}
+		                		else if((gameOver)&&(enterHighScore))
+		                			{
+		                				if(counter == 0)
+		                					{
+		                						counter = 2;
+		                					}
+		                				else
+		                					{
+		                						counter-=1;
+		                					}
 		                			}
 		                		break;
 		                	case KeyEvent.VK_SPACE:
@@ -209,15 +257,15 @@ public class SnakeRunner extends Canvas
 					 
 					 g.setColor(Color.white);
 					 g.setFont(z);
-					 g.drawString("A", 300, 400);
+					 g.drawString(alphaBET[alphaBETCounter[0]], 300, 400);
 					 
 					 g.setColor(Color.white);
 					 g.setFont(z);
-					 g.drawString("A", 315, 400);
+					 g.drawString(alphaBET[alphaBETCounter[1]], 315, 400);
 					 
 					 g.setColor(Color.white);
 					 g.setFont(z);
-					 g.drawString("A", 330, 400);
+					 g.drawString(alphaBET[alphaBETCounter[2]], 330, 400);
 				 }
 			 else 
 				 {
