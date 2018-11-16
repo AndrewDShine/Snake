@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JFrame;
+import javax.swing.Timer;
 import java.util.ArrayList;
 
 @SuppressWarnings("serial")
@@ -14,9 +15,9 @@ public class SnakeRunner extends Canvas
 		static int ySize = 813;
 		static int score = snake.size()-1;
 		static int fruitsEaten = 0;
-		static boolean gameOver=true;
+		static boolean gameOver=false;
 		static boolean needsFruit = true;
-		static boolean startGame=true;
+		static boolean startGame=false;
 		static boolean enterHighScore;
 		//Objects holding more game info
 		static String dir = "stopped";
@@ -52,28 +53,58 @@ public class SnakeRunner extends Canvas
 		                switch(e.getKeyCode())
 		                {
 		                	case KeyEvent.VK_DOWN:
-		                		dir = "down";
+		                		if((!dir.equals("up") || (snake.size() == 1)) && startGame)
+		                			{
+		                				dir = "down";
+		                			}
 		                		break;
 		                	case KeyEvent.VK_UP:
-		                		dir = "up";
+		                		if((!dir.equals("down") || (snake.size() == 1)) && startGame)
+		                			{
+		                				dir = "up";
+		                			}
 		                		break;
 		                	case KeyEvent.VK_RIGHT:
-		                		dir = "right";
+		                		if((!dir.equals("left") || (snake.size() == 1)) && startGame)
+		                			{
+		                				dir = "right";
+		                			}
 		                		break;
 		                	case KeyEvent.VK_LEFT:
-		                		dir = "left";
+		                		if((!dir.equals("right") || (snake.size() == 1)) && startGame)
+		                			{
+		                				dir = "left";
+		                			}
 		                		break;
 		                	case KeyEvent.VK_SPACE:
 		                		dir = "stopped";
 		                		break;
 		                	case KeyEvent.VK_ENTER:
 		                		startGame=true;
+		                		if(gameOver)
+		                			{
+		                				gameOver = false;
+				                		restartGame();
+		                			}
 		                		repaint();
 		                		break;
 		                }
 		            }
 		            
 		        });
+		        Timer timer = new Timer(100, new ActionListener(){
+		        	@Override
+		        	public void actionPerformed(ActionEvent e)
+		        	{
+		        		if(startGame)
+		        			{
+		        				moveSnake();
+		        				repaint();
+		        			}
+		        	}
+		        
+		        });
+		        timer.start();
 		    }
 
 		 public void paint(Graphics g)
@@ -81,6 +112,7 @@ public class SnakeRunner extends Canvas
 			 Font f=new Font("bet", Font.PLAIN, 50);
 			 Font x=new Font("bet", Font.PLAIN, 100);
 			 Font z=new Font("bet", Font.PLAIN, 15);
+			 Font o=new Font("bet", Font.ROMAN_BASELINE, 15);
 			 try
 				 {
 			 if(!startGame)
@@ -154,11 +186,11 @@ public class SnakeRunner extends Canvas
 					 	{
 						 	g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
 					 	}
-				 	g.setColor(Color.GREEN);
-				 	g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
+				 	
 				 	g.setColor(Color.RED);
 					g.fillRect(fruit.getxPos(), fruit.getyPos(), 24, 24);
-					moveSnake();
+					g.setColor(Color.GREEN);
+				 	g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
 				 
 				 
 			        for(Body b: snake)
@@ -244,6 +276,7 @@ public class SnakeRunner extends Canvas
 								else
 									{
 										gameOver = true;
+										dir = "stopped";
 									}
 							   break;
 						   case "down":
@@ -254,6 +287,7 @@ public class SnakeRunner extends Canvas
 								else
 									{
 										gameOver = true;
+										dir = "stopped";
 									}
 							   break;
 						   case "right":
@@ -264,6 +298,7 @@ public class SnakeRunner extends Canvas
 								else
 									{
 										gameOver = true;
+										dir = "stopped";
 									}
 							   break;
 						   case "left":
@@ -274,19 +309,19 @@ public class SnakeRunner extends Canvas
 								else
 									{
 										gameOver = true;
+										dir = "stopped";
 									}
 							   break;
 					   }
 				changeBodyPositions(startX, startY, 1);
-				repaint(); 
-				Thread.sleep(100);
+//				repaint(); 
 				
 				 
 				
 				   }
 			 else
 			 {
-			 repaint(); 
+//			 repaint(); 
 			 }
 				 }
 			 catch(Exception e)
@@ -329,6 +364,14 @@ public class SnakeRunner extends Canvas
 					 snake.add(new Body(-25, -25));
 				 }
 			 needsFruit = true;
+		 }
+		 public void restartGame()
+		 {
+			 snake.clear();
+			 snake.add(new Body(0,0));
+			 dir = "stopped";
+			 fruitsEaten = 0;
+			 createNewFruit();
 		 }
 	}
 
