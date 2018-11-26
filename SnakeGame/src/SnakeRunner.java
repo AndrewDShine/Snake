@@ -80,7 +80,7 @@ public class SnakeRunner extends Canvas
 		                			}
 		                		else if((gameOver)&&(enterHighScore))
 		                			{
-		                				if(alphaBETCounter[0]==25)
+		                				if(alphaBETCounter[counter]==25)
 		                					{
 		                						alphaBETCounter[counter] = 0;
 		                					}
