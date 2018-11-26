@@ -17,10 +17,10 @@ public class SnakeRunner extends Canvas
 		static int ySize = 813;
 		static int score = snake.size()-1;
 		static int fruitsEaten = 0;
-		static boolean gameOver=false;
+		static boolean gameOver=true;
 		static boolean needsFruit = true;
-		static boolean startGame=false;
-		static boolean enterHighScore;
+		static boolean startGame=true;
+		static boolean enterHighScore = true;
 		static int counter = 0;
 		final static int [] alphaBETCounter = {0, 0, 0};
 		//Objects holding more game info
@@ -160,7 +160,7 @@ public class SnakeRunner extends Canvas
 			 Font f=new Font("bet", Font.PLAIN, 50);
 			 Font x=new Font("bet", Font.PLAIN, 100);
 			 Font z=new Font("bet", Font.PLAIN, 15);
-			 Font o=new Font("bet", Font.ROMAN_BASELINE, 15);
+			 Font o=new Font("bet", Font.PLAIN, 25);
 			 try
 				 {
 			 if(!startGame)
@@ -256,16 +256,33 @@ public class SnakeRunner extends Canvas
 					 g.drawString("ENTER YOUR NAME", 218, 290);
 					 
 					 g.setColor(Color.white);
-					 g.setFont(z);
-					 g.drawString(alphaBET[alphaBETCounter[0]], 300, 400);
+					 g.setFont(o);
+					 g.drawString(alphaBET[alphaBETCounter[0]], 420, 400);
 					 
 					 g.setColor(Color.white);
-					 g.setFont(z);
-					 g.drawString(alphaBET[alphaBETCounter[1]], 315, 400);
+					 g.setFont(o);
+					 g.drawString(alphaBET[alphaBETCounter[1]], 445, 400);
 					 
 					 g.setColor(Color.white);
-					 g.setFont(z);
-					 g.drawString(alphaBET[alphaBETCounter[2]], 330, 400);
+					 g.setFont(o);
+					 g.drawString(alphaBET[alphaBETCounter[2]], 470, 400);
+					 
+					 switch(counter)
+					 {
+						 case 0:
+							 drawTriangle(g, 420, 400, true);
+							 drawTriangle(g, 420, 400, false);
+							 break;
+						 case 1:
+							 drawTriangle(g, 445, 400, true);
+							 drawTriangle(g, 445, 400, false);
+							 break;
+						 case 2:
+							 drawTriangle(g, 470, 400, true);
+							 drawTriangle(g, 470, 400, false);
+							 break;
+					 }
+					 
 				 }
 			 else 
 				 {
@@ -420,6 +437,25 @@ public class SnakeRunner extends Canvas
 			 dir = "stopped";
 			 fruitsEaten = 0;
 			 createNewFruit();
+		 }
+		 public void drawTriangle(Graphics g, int x, int y, boolean up)
+		 {
+			 if(up)
+				 {
+					 g.drawRect(x, y - 25, 15, 1);
+					 g.drawRect(x + 2, y - 27, 11, 1); 
+					 g.drawRect(x + 4, y - 29, 7, 1);
+					 g.drawRect(x + 6, y - 31, 3, 1);
+					 g.drawRect(x + 7, y - 32, 1, 1);
+				 }
+			 else
+				 {
+					 g.drawRect(x, y + 7, 15, 1);
+					 g.drawRect(x + 2, y + 9, 11, 1); 
+					 g.drawRect(x + 4, y + 11, 7, 1);
+					 g.drawRect(x + 6, y + 13, 3, 1);
+					 g.drawRect(x + 7, y + 14, 1, 1); 
+				 }
 		 }
 	}
 
