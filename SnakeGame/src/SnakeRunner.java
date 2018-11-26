@@ -277,7 +277,7 @@ public class SnakeRunner extends Canvas
 						 g.setFont(z);
 						 g.drawString("YOUR SCORE WAS: "+String.valueOf(snake.size()-1), 360, 420);
 						 
-						 Thread.sleep(000);
+						 Thread.sleep(2000);
 						 
 						 enterHighScore=true;
 						 
