@@ -17,10 +17,11 @@ public class SnakeRunner extends Canvas
 		static int ySize = 813;
 		static int score = snake.size()-1;
 		static int fruitsEaten = 0;
-		static boolean gameOver=false;
+		static boolean gameOver=true;
 		static boolean needsFruit = true;
-		static boolean startGame=false;
+		static boolean startGame=true;
 		static boolean enterHighScore;
+		static boolean displayLeaderboard=true;
 		static int counter = 0;
 		final static int [] alphaBETCounter = {0, 0, 0};
 		//Objects holding more game info
@@ -29,6 +30,17 @@ public class SnakeRunner extends Canvas
 		
 		public static void main(String[] args)
 			{
+				highScores.add(new Score(1, "WIL"));
+				highScores.add(new Score(2, "FRE"));
+				highScores.add(new Score(3, "GAR"));
+				highScores.add(new Score(4, "JAN"));
+				highScores.add(new Score(5, "BAR"));
+				highScores.add(new Score(6, "JON"));
+				highScores.add(new Score(7, "JEF"));
+				highScores.add(new Score(8, "CAL"));
+				highScores.add(new Score(9, "AND"));
+				highScores.add(new Score(10,"JOS"));
+				
 				
 				snake.add(new Body(0,0));
 				JFrame frame = new JFrame("Snake");
@@ -266,6 +278,27 @@ public class SnakeRunner extends Canvas
 					 g.setColor(Color.white);
 					 g.setFont(z);
 					 g.drawString(alphaBET[alphaBETCounter[2]], 330, 400);
+				 }
+			 else if(displayLeaderboard)
+				 {
+					 UploadScores.readScores();
+					 int tempY = 200;
+					 
+					 g.setColor(Color.white);
+					 g.setFont(f);
+					 g.drawString("HIGH SCORES", 270, 50);
+					 for(int i=0 ; i<11; i++)
+						 {
+							 g.setColor(Color.white);
+							 g.setFont(z);
+							 g.drawString(highScores.get(i).getName(), 456, tempY);
+							 
+							 g.setColor(Color.white);
+							 g.setFont(z);
+							 g.drawString(String.valueOf(highScores.get(i).getScore()), 496, tempY);
+							 
+							 tempY+=20;
+						 }
 				 }
 			 else 
 				 {
