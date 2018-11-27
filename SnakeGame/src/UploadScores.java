@@ -57,4 +57,17 @@ public class UploadScores
 			Collections.sort(SnakeRunner.highScores, new ScoreSorter());
 			Collections.reverse(SnakeRunner.highScores);
 		}
+		public static void createDefaultScores()
+		{
+			SnakeRunner.highScores.add(new Score(1, "WIL"));
+			SnakeRunner.highScores.add(new Score(2, "FRE"));
+			SnakeRunner.highScores.add(new Score(3, "GAR"));
+			SnakeRunner.highScores.add(new Score(4, "JAN"));
+			SnakeRunner.highScores.add(new Score(5, "BAR"));
+			SnakeRunner.highScores.add(new Score(6, "JON"));
+			SnakeRunner.highScores.add(new Score(7, "JEF"));
+			SnakeRunner.highScores.add(new Score(8, "CAL"));
+			SnakeRunner.highScores.add(new Score(9, "AND"));
+			SnakeRunner.highScores.add(new Score(10,"JOS"));
+		}
 	}

@@ -27,7 +27,7 @@ public class SnakeRunner extends Canvas
 		
 		public static void main(String[] args)
 			{
-				
+				UploadScores.readScores();
 				snake.add(new Body(0,0));
 				JFrame frame = new JFrame("Snake");
 		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,10 +36,7 @@ public class SnakeRunner extends Canvas
 		        frame.pack();
 		        frame.setResizable(false);
 		        frame.setVisible(true);
-		        ex.requestFocus();
-		        
-		    
-				UploadScores.readScores();
+		        ex.requestFocus();	
 			}
 		 public SnakeRunner()
 			 {
@@ -165,7 +162,9 @@ public class SnakeRunner extends Canvas
 			 Font f=new Font("bet", Font.PLAIN, 50);
 			 Font x=new Font("bet", Font.PLAIN, 100);
 			 Font z=new Font("bet", Font.PLAIN, 15);
-			 Font o=new Font("bet", Font.PLAIN, 25);
+			 Font o=new Font("bet", Font.ROMAN_BASELINE, 15);
+			 Font scores = new Font("Scores", Font.PLAIN, 30);
+			 Font restart = new Font("Restart", Font.PLAIN, 40);
 			 try
 				 {
 					 switch(stage)
@@ -258,6 +257,34 @@ public class SnakeRunner extends Canvas
 							 
 							 g.setColor(Color.white);
 							 g.setFont(z);
+			 else if(displayLeaderboard)
+				 {
+//					 UploadScores.readScores();
+					 int tempY = 170;
+					 
+					 g.setColor(Color.white);
+					 g.setFont(f);
+					 g.drawString("HIGH SCORES", 270, 50);
+					 
+					 g.setColor(Color.white);
+					 g.setFont(restart);
+					 g.drawString("PRESS ENTER TO RESTART", 180, 750);
+					 
+					 for(int i=0 ; i<11; i++)
+						 {
+							 g.setColor(Color.white);
+							 g.setFont(scores);
+							 g.drawString(highScores.get(i).getName(), 366, tempY);
+							 
+							 g.setColor(Color.white);
+							 g.setFont(scores);
+							 g.drawString(String.valueOf(highScores.get(i).getScore()), 496, tempY);
+							 
+							 tempY+=50;
+						 }
+		
+				 }
+=======
 							 g.drawString("YOUR SCORE WAS: "+String.valueOf(snake.size()-1), 360, 420);
 							 
 							 break;
