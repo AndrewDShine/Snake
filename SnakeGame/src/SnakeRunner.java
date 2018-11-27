@@ -3,6 +3,7 @@ import java.awt.event.*;
 import javax.swing.JFrame;
 import javax.swing.Timer;
 import java.util.ArrayList;
+import java.util.Collections;
 
 @SuppressWarnings("serial")
 public class SnakeRunner extends Canvas
@@ -126,6 +127,13 @@ public class SnakeRunner extends Canvas
 		                		if(stage != 1 && stage != 5)
 		                			{
 		                				stage += 1;
+		                				if(stage==4)
+		                					{
+		                						highScores.add(new Score((snake.size()-1), (alphaBET[alphaBETCounter[0]]+alphaBET[alphaBETCounter[1]]+alphaBET[alphaBETCounter[2]])));
+		                						Collections.sort(SnakeRunner.highScores, new ScoreSorter());
+		                						Collections.reverse(SnakeRunner.highScores);
+		                						UploadScores.writeScores();
+		                					}
 		                			}
 		                		if(stage == 5)
 		                			{
@@ -277,6 +285,8 @@ public class SnakeRunner extends Canvas
 							 g.setFont(o);
 							 g.drawString(alphaBET[alphaBETCounter[2]], 470, 400);
 							 
+							 
+							 
 							 switch(counter)
 							 {
 								 case 0:
@@ -307,7 +317,7 @@ public class SnakeRunner extends Canvas
 							 g.setFont(restart);
 							 g.drawString("PRESS ENTER TO RESTART", 180, 750);
 							 
-							 for(int i=0 ; i<11; i++)
+							 for(int i=0 ; i<10; i++)
 								 {
 									 g.setColor(Color.white);
 									 g.setFont(scores);
