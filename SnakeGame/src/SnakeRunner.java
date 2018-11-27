@@ -295,11 +295,13 @@ public class SnakeRunner extends Canvas
 							 break;
 						 case 4:
 //							 UploadScores.readScores();
-							 int tempY = 170;
+							 int tempY = 120;
 							 
 							 g.setColor(Color.white);
 							 g.setFont(f);
 							 g.drawString("HIGH SCORES", 270, 50);
+							 
+							 g.drawRect(50, 60, 800, 1);
 							 
 							 g.setColor(Color.white);
 							 g.setFont(restart);
