@@ -17,10 +17,8 @@ public class SnakeRunner extends Canvas
 		static int ySize = 813;
 		static int score = snake.size()-1;
 		static int fruitsEaten = 0;
-		static boolean gameOver=false;
+		static int stage = 0;
 		static boolean needsFruit = true;
-		static boolean startGame=false;
-		static boolean enterHighScore;
 		static int counter = 0;
 		final static int [] alphaBETCounter = {0, 0, 0};
 		//Objects holding more game info
@@ -57,11 +55,11 @@ public class SnakeRunner extends Canvas
 		                switch(e.getKeyCode())
 		                {
 		                	case KeyEvent.VK_DOWN:
-		                		if((!dir.equals("up") || (snake.size() == 1)) && startGame&&(!gameOver))
+		                		if((!dir.equals("up") || (snake.size() == 1)) && (stage == 1))
 		                			{
 		                				dir = "down";
 		                			}
-		                		else if((gameOver)&&(enterHighScore))
+		                		else if(stage == 3)
 		                			{
 		                				if(alphaBETCounter[counter]==0)
 		                					{
@@ -74,11 +72,11 @@ public class SnakeRunner extends Canvas
 		                			}
 		                		break;
 		                	case KeyEvent.VK_UP:
-		                		if((!dir.equals("down") || (snake.size() == 1)) && startGame && (!gameOver))
+		                		if((!dir.equals("down") || (snake.size() == 1)) && (stage == 1))
 		                			{
 		                				dir = "up";
 		                			}
-		                		else if((gameOver)&&(enterHighScore))
+		                		else if(stage == 3)
 		                			{
 		                				if(alphaBETCounter[counter]==25)
 		                					{
@@ -91,11 +89,11 @@ public class SnakeRunner extends Canvas
 		                			}
 		                		break;
 		                	case KeyEvent.VK_RIGHT:
-		                		if((!dir.equals("left") || (snake.size() == 1)) && startGame && (!gameOver))
+		                		if((!dir.equals("left") || (snake.size() == 1)) && (stage == 1))
 		                			{
 		                				dir = "right";
 		                			}
-		                		else if((gameOver)&&(enterHighScore))
+		                		else if(stage == 3)
 		                			{
 		                				if(counter == 2)
 		                					{
@@ -108,11 +106,11 @@ public class SnakeRunner extends Canvas
 		                			}
 		                		break;
 		                	case KeyEvent.VK_LEFT:
-		                		if((!dir.equals("right") || (snake.size() == 1)) && startGame && (!gameOver))
+		                		if((!dir.equals("right") || (snake.size() == 1)) && (stage == 1))
 		                			{
 		                				dir = "left";
 		                			}
-		                		else if((gameOver)&&(enterHighScore))
+		                		else if(stage == 3)
 		                			{
 		                				if(counter == 0)
 		                					{
@@ -128,11 +126,14 @@ public class SnakeRunner extends Canvas
 		                		dir = "stopped";
 		                		break;
 		                	case KeyEvent.VK_ENTER:
-		                		startGame=true;
-		                		if(gameOver)
+		                		if(stage != 1 && stage != 4)
 		                			{
-		                				gameOver = false;
+		                				stage += 1;
+		                			}
+		                		if(stage == 4)
+		                			{
 				                		restartGame();
+				                		stage = 1;
 		                			}
 		                		repaint();
 		                		break;
@@ -144,9 +145,13 @@ public class SnakeRunner extends Canvas
 		        	@Override
 		        	public void actionPerformed(ActionEvent e)
 		        	{
-		        		if(startGame)
+		        		if(stage == 1)
 		        			{
 		        				moveSnake();
+		        				repaint();
+		        			}
+		        		else if(stage == 3)
+		        			{
 		        				repaint();
 		        			}
 		        	}
@@ -160,132 +165,136 @@ public class SnakeRunner extends Canvas
 			 Font f=new Font("bet", Font.PLAIN, 50);
 			 Font x=new Font("bet", Font.PLAIN, 100);
 			 Font z=new Font("bet", Font.PLAIN, 15);
-			 Font o=new Font("bet", Font.ROMAN_BASELINE, 15);
+			 Font o=new Font("bet", Font.PLAIN, 25);
 			 try
 				 {
-			 if(!startGame)
-				 {
-					String snake= "SNAKE";
-					 int textX=198;
-					 for(int i=0; i<snake.length(); i++)
-						 {
+					 switch(stage)
+					 {
+						 case 0:
+							 String title= "SNAKE";
+							 int textX=198;
+							 for(int i=0; i<title.length(); i++)
+								 {
+									 g.setColor(Color.white);
+									 g.setFont(x);
+									 g.drawString(title.substring(i, i+1), textX, 125);	 
+									 Thread.sleep(100); 
+									 textX+=100;
+								 }
+							 
+							 String credits = "A GAME BY ANDREW AND JOSH";
+							 textX=128;
+							 for(int i=0; i<credits.length(); i++)
+								 {
+									 g.setColor(Color.white);
+									 g.setFont(z);
+									 g.drawString(credits.substring(i,  i+1), textX, 175);	 
+									 Thread.sleep(50); 
+									 textX+=25; 
+								 }
+							 
+							 String start = "PRESS ENTER TO START";
+							 textX=178;
+							 for(int i=0; i<start.length(); i++)
+								 {
+									 g.setColor(Color.white);
+									 g.setFont(z);
+									 g.drawString(start.substring(i,  i+1), textX, 400);	 
+									 Thread.sleep(10); 
+									 textX+=25; 
+								 }
+							 break;
+						 case 1:
+							 Font q = new Font("bet", Font.PLAIN, 25); 
 							 g.setColor(Color.white);
-							 g.setFont(x);
-							 g.drawString(snake.substring(i, i+1), textX, 125);	 
-							 Thread.sleep(100); 
-							 textX+=100;
-						 }
-					 
-					String credits = "A GAME BY ANDREW AND JOSH";
-					 textX=128;
-					 for(int i=0; i<credits.length(); i++)
-						 {
+							 g.setFont(q);
+							 g.drawString(String.valueOf("SCORE: "+String.valueOf(snake.size()-1)), 10, 25);
+							 
+							 if(highScores.size()>0)
+								 {
+							 g.setColor(Color.white);
+							 g.setFont(q);
+							 g.drawString("HIGH SCORE: "+String.valueOf(highScores.get(0).getScore()), 690, 25);
+								 }
+								 
+							 g.setColor(Color.CYAN);
+							 for(Body b: snake)
+								 {
+									 g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
+								 }
+							 g.setColor(Color.GREEN);
+							 g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
+							 g.setColor(Color.RED);
+							 g.fillRect(fruit.getxPos(), fruit.getyPos(), 24, 24);
+							 
+							 if(needsFruit)
+								 {
+									 createNewFruit();
+								 }
+									 g.setColor(Color.CYAN);
+								 	for(Body b: snake)
+									 	{
+										 	g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
+									 	}
+								 	
+								 	g.setColor(Color.RED);
+									g.fillRect(fruit.getxPos(), fruit.getyPos(), 24, 24);
+									g.setColor(Color.GREEN);
+								 	g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
+								 
+								 
+							        for(Body b: snake)
+							        	{
+							        		if((b.getxPos() == fruit.getxPos()) && (b.getyPos() == fruit.getyPos()))
+							        			{
+							        				eatFruit();
+							        			}
+							        	}
+							 break;
+						 case 2:
+							 g.setColor(Color.white);
+							 g.setFont(f);
+							 g.drawString("GAME OVER", 288, 390);	
+							 
 							 g.setColor(Color.white);
 							 g.setFont(z);
-							 g.drawString(credits.substring(i,  i+1), textX, 175);	 
-							 Thread.sleep(50); 
-							 textX+=25; 
-						 }
-					 String start = "PRESS ENTER TO START";
-					 
-					 textX=178;
-					 
-					 for(int i=0; i<start.length(); i++)
-						 {
+							 g.drawString("YOUR SCORE WAS: "+String.valueOf(snake.size()-1), 360, 420);
+							 
+							 break;
+						 case 3:
 							 g.setColor(Color.white);
-							 g.setFont(z);
-							 g.drawString(start.substring(i,  i+1), textX, 400);	 
-							 Thread.sleep(10); 
-							 textX+=25; 
-						 }
-				 }
-			 else
-				 {
-			 if(!gameOver)
-			 {
-			 Font q = new Font("bet", Font.PLAIN, 25); 
-			 g.setColor(Color.white);
-			 g.setFont(q);
-			 g.drawString(String.valueOf("SCORE: "+String.valueOf(snake.size()-1)), 10, 25);
-			 
-			 if(highScores.size()>0)
-				 {
-			 g.setColor(Color.white);
-			 g.setFont(q);
-			 g.drawString("HIGH SCORE: "+String.valueOf(highScores.get(0).getScore()), 690, 25);
-				 }
-				 
-			 g.setColor(Color.CYAN);
-			 for(Body b: snake)
-				 {
-					 g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
-				 }
-			 g.setColor(Color.GREEN);
-			 g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
-			 g.setColor(Color.RED);
-			 g.fillRect(fruit.getxPos(), fruit.getyPos(), 24, 24);
-			 
-			 if(needsFruit)
-				 {
-					 createNewFruit();
-				 }
-					 g.setColor(Color.CYAN);
-				 	for(Body b: snake)
-					 	{
-						 	g.fillRect(b.getxPos(), b.getyPos(), 24, 24);
-					 	}
-				 	
-				 	g.setColor(Color.RED);
-					g.fillRect(fruit.getxPos(), fruit.getyPos(), 24, 24);
-					g.setColor(Color.GREEN);
-				 	g.fillRect(snake.get(0).getxPos(), snake.get(0).getyPos(), 24, 24);
-				 
-				 
-			        for(Body b: snake)
-			        	{
-			        		if((b.getxPos() == fruit.getxPos()) && (b.getyPos() == fruit.getyPos()))
-			        			{
-			        				eatFruit();
-			        			}
-			        	}
-			 }
-			 else if(enterHighScore)
-				 {
-					 g.setColor(Color.white);
-					 g.setFont(f);
-					 g.drawString("ENTER YOUR NAME", 218, 290);
-					 
-					 g.setColor(Color.white);
-					 g.setFont(z);
-					 g.drawString(alphaBET[alphaBETCounter[0]], 300, 400);
-					 
-					 g.setColor(Color.white);
-					 g.setFont(z);
-					 g.drawString(alphaBET[alphaBETCounter[1]], 315, 400);
-					 
-					 g.setColor(Color.white);
-					 g.setFont(z);
-					 g.drawString(alphaBET[alphaBETCounter[2]], 330, 400);
-				 }
-			 else 
-				 {
-						 g.setColor(Color.white);
-						 g.setFont(f);
-						 g.drawString("GAME OVER", 288, 390);	
-						 
-						 g.setColor(Color.white);
-						 g.setFont(z);
-						 g.drawString("YOUR SCORE WAS: "+String.valueOf(snake.size()-1), 360, 420);
-						 
-						 Thread.sleep(2000);
-						 
-						 enterHighScore=true;
-						 
-						 repaint();
-				 }
-			 
-			 
-			    }
+							 g.setFont(f);
+							 g.drawString("ENTER YOUR NAME", 218, 290);
+							 
+							 g.setColor(Color.white);
+							 g.setFont(o);
+							 g.drawString(alphaBET[alphaBETCounter[0]], 420, 400);
+							 
+							 g.setColor(Color.white);
+							 g.setFont(o);
+							 g.drawString(alphaBET[alphaBETCounter[1]], 445, 400);
+							 
+							 g.setColor(Color.white);
+							 g.setFont(o);
+							 g.drawString(alphaBET[alphaBETCounter[2]], 470, 400);
+							 
+							 switch(counter)
+							 {
+								 case 0:
+									 drawTriangle(g, 420, 400, true);
+									 drawTriangle(g, 420, 400, false);
+									 break;
+								 case 1:
+									 drawTriangle(g, 445, 400, true);
+									 drawTriangle(g, 445, 400, false);
+									 break;
+								 case 2:
+									 drawTriangle(g, 470, 400, true);
+									 drawTriangle(g, 470, 400, false);
+									 break;
+							 }
+							 break;
+					 }
 				 }
 			 catch(Exception e)
 				 {
@@ -305,14 +314,14 @@ public class SnakeRunner extends Canvas
 						{
 					if((snake.get(0).getxPos()==snake.get(i).getxPos())&&(snake.get(0).getyPos()==snake.get(i).getyPos()))
 					 {
-					  gameOver=true;	
+					  stage = 2;	
 					 }
 						}
 				 }
 			 
 			 try
 				 {
-			 if(!gameOver)
+			 if(stage == 1)
 				   {
 					   switch(dir)
 					   {
@@ -323,7 +332,7 @@ public class SnakeRunner extends Canvas
 									}
 								else
 									{
-										gameOver = true;
+										stage = 2;
 										dir = "stopped";
 									}
 							   break;
@@ -334,7 +343,7 @@ public class SnakeRunner extends Canvas
 									}
 								else
 									{
-										gameOver = true;
+										stage = 2;
 										dir = "stopped";
 									}
 							   break;
@@ -345,7 +354,7 @@ public class SnakeRunner extends Canvas
 									}
 								else
 									{
-										gameOver = true;
+										stage = 2;
 										dir = "stopped";
 									}
 							   break;
@@ -356,7 +365,7 @@ public class SnakeRunner extends Canvas
 									}
 								else
 									{
-										gameOver = true;
+										stage = 2;
 										dir = "stopped";
 									}
 							   break;
@@ -420,6 +429,25 @@ public class SnakeRunner extends Canvas
 			 dir = "stopped";
 			 fruitsEaten = 0;
 			 createNewFruit();
+		 }
+		 public void drawTriangle(Graphics g, int x, int y, boolean up)
+		 {
+			 if(up)
+				 {
+					 g.drawRect(x, y - 25, 15, 1);
+					 g.drawRect(x + 2, y - 27, 11, 1); 
+					 g.drawRect(x + 4, y - 29, 7, 1);
+					 g.drawRect(x + 6, y - 31, 3, 1);
+					 g.drawRect(x + 7, y - 32, 1, 1);
+				 }
+			 else
+				 {
+					 g.drawRect(x, y + 7, 15, 1);
+					 g.drawRect(x + 2, y + 9, 11, 1); 
+					 g.drawRect(x + 4, y + 11, 7, 1);
+					 g.drawRect(x + 6, y + 13, 3, 1);
+					 g.drawRect(x + 7, y + 14, 1, 1); 
+				 }
 		 }
 	}
 
