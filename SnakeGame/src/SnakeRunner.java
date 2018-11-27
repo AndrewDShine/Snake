@@ -162,7 +162,7 @@ public class SnakeRunner extends Canvas
 			 Font f=new Font("bet", Font.PLAIN, 50);
 			 Font x=new Font("bet", Font.PLAIN, 100);
 			 Font z=new Font("bet", Font.PLAIN, 15);
-			 Font o=new Font("bet", Font.PLAIN, 15);
+			 Font o=new Font("bet", Font.PLAIN, 25);
 			 Font scores = new Font("Scores", Font.PLAIN, 30);
 			 Font restart = new Font("Restart", Font.PLAIN, 40);
 			 try
