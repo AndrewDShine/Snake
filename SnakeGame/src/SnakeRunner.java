@@ -30,18 +30,7 @@ public class SnakeRunner extends Canvas
 		
 		public static void main(String[] args)
 			{
-				highScores.add(new Score(1, "WIL"));
-				highScores.add(new Score(2, "FRE"));
-				highScores.add(new Score(3, "GAR"));
-				highScores.add(new Score(4, "JAN"));
-				highScores.add(new Score(5, "BAR"));
-				highScores.add(new Score(6, "JON"));
-				highScores.add(new Score(7, "JEF"));
-				highScores.add(new Score(8, "CAL"));
-				highScores.add(new Score(9, "AND"));
-				highScores.add(new Score(10,"JOS"));
-				
-				
+				UploadScores.readScores();
 				snake.add(new Body(0,0));
 				JFrame frame = new JFrame("Snake");
 		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,10 +39,7 @@ public class SnakeRunner extends Canvas
 		        frame.pack();
 		        frame.setResizable(false);
 		        frame.setVisible(true);
-		        ex.requestFocus();
-		        
-		    
-				UploadScores.readScores();
+		        ex.requestFocus();	
 			}
 		 public SnakeRunner()
 			 {
@@ -173,6 +159,8 @@ public class SnakeRunner extends Canvas
 			 Font x=new Font("bet", Font.PLAIN, 100);
 			 Font z=new Font("bet", Font.PLAIN, 15);
 			 Font o=new Font("bet", Font.ROMAN_BASELINE, 15);
+			 Font scores = new Font("Scores", Font.PLAIN, 30);
+			 Font restart = new Font("Restart", Font.PLAIN, 40);
 			 try
 				 {
 			 if(!startGame)
@@ -281,24 +269,30 @@ public class SnakeRunner extends Canvas
 				 }
 			 else if(displayLeaderboard)
 				 {
-					 UploadScores.readScores();
-					 int tempY = 200;
+//					 UploadScores.readScores();
+					 int tempY = 170;
 					 
 					 g.setColor(Color.white);
 					 g.setFont(f);
 					 g.drawString("HIGH SCORES", 270, 50);
+					 
+					 g.setColor(Color.white);
+					 g.setFont(restart);
+					 g.drawString("PRESS ENTER TO RESTART", 180, 750);
+					 
 					 for(int i=0 ; i<11; i++)
 						 {
 							 g.setColor(Color.white);
-							 g.setFont(z);
-							 g.drawString(highScores.get(i).getName(), 456, tempY);
+							 g.setFont(scores);
+							 g.drawString(highScores.get(i).getName(), 366, tempY);
 							 
 							 g.setColor(Color.white);
-							 g.setFont(z);
+							 g.setFont(scores);
 							 g.drawString(String.valueOf(highScores.get(i).getScore()), 496, tempY);
 							 
-							 tempY+=20;
+							 tempY+=50;
 						 }
+		
 				 }
 			 else 
 				 {
