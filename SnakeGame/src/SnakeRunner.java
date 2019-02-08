@@ -1,12 +1,13 @@
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.Timer;
 import java.util.ArrayList;
 import java.util.Collections;
 
 @SuppressWarnings("serial")
-public class SnakeRunner extends Canvas
+public class SnakeRunner extends JPanel
 	{
 		final static String [] alphaBET= {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 		//Alphabet Array
@@ -14,8 +15,8 @@ public class SnakeRunner extends Canvas
 		//Main Snake Object
 		static ArrayList<Body> snake = new ArrayList<Body>();
 		//Primitives, holding various game info
-		static int xSize = 913;
-		static int ySize = 813;
+		static int xSize = 931;
+		static int ySize = 828;
 		static int score = snake.size()-1;
 		static int fruitsEaten = 0;
 		static int stage = 0;
@@ -25,6 +26,13 @@ public class SnakeRunner extends Canvas
 		//Objects holding more game info
 		static String dir = "stopped";
 		static Body fruit = new Body(xSize + 25, ySize + 25);
+		static int tickCounter = 0;
+		static String title= "SNAKE";
+		static String shownTitle = "";
+		static String credits = "A GAME BY ANDREW AND JOSH";
+		static String shownCredits = "";
+		static String start = "PRESS ENTER TO START";
+		static String shownStart = "";
 		
 		public static void main(String[] args)
 			{
@@ -33,17 +41,17 @@ public class SnakeRunner extends Canvas
 				JFrame frame = new JFrame("Snake");
 		        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		        SnakeRunner ex = new SnakeRunner();
-		        frame.getContentPane().add(ex);
-		        frame.pack();
+		        frame.add(ex);
+		        frame.setSize(xSize, ySize);
 		        frame.setResizable(false);
 		        frame.setVisible(true);
-		        ex.requestFocus();	
+		        ex.setFocusable(true);	
 			}
 		 public SnakeRunner()
 			 {
+				
 				UploadScores.writeScores();
 				UploadScores.readScores();
-				setSize(new Dimension(xSize, ySize));
 		        setBackground(Color.BLACK);
 		        addKeyListener(new KeyAdapter() 
 		        {
@@ -142,6 +150,9 @@ public class SnakeRunner extends Canvas
 		                			}
 		                		repaint();
 		                		break;
+		                	case KeyEvent.VK_P:
+		                		createNewFruit();
+		                		break;
 		                }
 		            }
 		            
@@ -150,12 +161,27 @@ public class SnakeRunner extends Canvas
 		        	@Override
 		        	public void actionPerformed(ActionEvent e)
 		        	{
+		        		if(shownTitle.length() < title.length())
+		        			{
+		        				shownTitle += title.substring(tickCounter, tickCounter + 1);
+		        			}
+		        		else if(shownCredits.length() < credits.length())
+		        			{
+		        				int tick = tickCounter - 5;
+		        				shownCredits += credits.substring(tick, tick+1);
+		        			}
+		        		else if(shownStart.length() < start.length())
+		        			{
+		        				int tick = tickCounter - 30;
+		        				shownStart += start.substring(tick, tick+1);
+		        			}
+		        		tickCounter++;
 		        		if(stage == 1)
 		        			{
 		        				moveSnake();
 		        				repaint();
 		        			}
-		        		else if(stage == 3)
+		        		else
 		        			{
 		        				repaint();
 		        			}
@@ -165,50 +191,42 @@ public class SnakeRunner extends Canvas
 		        timer.start();
 		    }
 
-		 public void paint(Graphics g)
+		 public void paintComponent(Graphics g)
 		 {
-			 Font f=new Font("bet", Font.PLAIN, 50);
-			 Font x=new Font("bet", Font.PLAIN, 100);
-			 Font z=new Font("bet", Font.PLAIN, 15);
-			 Font o=new Font("bet", Font.PLAIN, 25);
-			 Font scores = new Font("Scores", Font.PLAIN, 30);
-			 Font restart = new Font("Restart", Font.PLAIN, 40);
+			 super.paintComponent(g);
+			 Font f=new Font("Arial", Font.PLAIN, 50);
+			 Font x=new Font("Arial", Font.PLAIN, 100);
+			 Font z=new Font("Arial", Font.PLAIN, 15);
+			 Font o=new Font("Arial", Font.PLAIN, 25);
+			 Font scores = new Font("Arial", Font.PLAIN, 30);
+			 Font restart = new Font("Arial", Font.PLAIN, 40);
 			 try
 				 {
 					 switch(stage)
 					 {
 						 case 0:
-							 String title= "SNAKE";
-							 int textX=198;
-							 for(int i=0; i<title.length(); i++)
-								 {
-									 g.setColor(Color.white);
-									 g.setFont(x);
-									 g.drawString(title.substring(i, i+1), textX, 125);	 
-									 Thread.sleep(100); 
-									 textX+=100;
-								 }
+							 int textX=278;
+							 g.setColor(Color.white);
+							 g.setFont(x);
+							 g.drawString(shownTitle, textX, 125);	 
+							 textX+=100;
 							 
-							 String credits = "A GAME BY ANDREW AND JOSH";
-							 textX=128;
-							 for(int i=0; i<credits.length(); i++)
-								 {
-									 g.setColor(Color.white);
-									 g.setFont(z);
-									 g.drawString(credits.substring(i,  i+1), textX, 175);	 
-									 Thread.sleep(50); 
-									 textX+=25; 
-								 }
+							 textX=158;
 							 
-							 String start = "PRESS ENTER TO START";
-							 textX=178;
-							 for(int i=0; i<start.length(); i++)
+							 g.setColor(Color.white);
+							 g.setFont(z);
+							 for(int i = 0; i < shownCredits.length(); i++)
 								 {
-									 g.setColor(Color.white);
-									 g.setFont(z);
-									 g.drawString(start.substring(i,  i+1), textX, 400);	 
-									 Thread.sleep(10); 
-									 textX+=25; 
+									 g.drawString(shownCredits.substring(i, i+1), textX + (25 * i), 175);
+								 }
+								 
+							 
+							 textX=208;
+							 g.setColor(Color.white);
+							 g.setFont(z);
+							 for(int i = 0; i < shownStart.length(); i++)
+								 {
+									 g.drawString(shownStart.substring(i, i+1), textX + (25 * i), 400);
 								 }
 							 break;
 						 case 1:
@@ -372,7 +390,7 @@ public class SnakeRunner extends Canvas
 									}
 							   break;
 						   case "down":
-							   if(snake.get(0).getyPos() < (ySize - 25))
+							   if(snake.get(0).getyPos() < (ySize - 60))
 									{
 										snake.get(0).setyPos(snake.get(0).getyPos()+25);
 									}
@@ -383,7 +401,7 @@ public class SnakeRunner extends Canvas
 									}
 							   break;
 						   case "right":
-							   if(snake.get(0).getxPos() < (xSize - 25))
+							   if(snake.get(0).getxPos() < (xSize - 50))
 									{
 										snake.get(0).setxPos(snake.get(0).getxPos()+25);
 									}
@@ -441,8 +459,8 @@ public class SnakeRunner extends Canvas
 		 }
 		 public void createNewFruit()
 		 {
-			 int fruitX = ((int) (Math.random()*37)) * 25;
-			 int fruitY = ((int) (Math.random()*33)) * 25;
+			 int fruitX = ((int) (Math.random()*36)) * 25;
+			 int fruitY = ((int) (Math.random()*32)) * 25;
 			 fruit.setxPos(fruitX);
 			 fruit.setyPos(fruitY);
 			 needsFruit = false;
